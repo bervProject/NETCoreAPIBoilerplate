@@ -12,12 +12,15 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-
-steps:
-  - task: UseDotNet@3
-    displayName: 'Use dotnet sdk 3.x'
-    inputs:
-      version: 3.x
-      includePreviewVersions: true
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
+jobs:
+- job: 'Install Dotnet 3'
+  steps:
+    - task: UseDotNet@3
+      displayName: 'Use dotnet sdk 3.x'
+      inputs:
+        version: 3.x
+        includePreviewVersions: true
+- job: 'Build'
+  steps:
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildConfiguration)'
