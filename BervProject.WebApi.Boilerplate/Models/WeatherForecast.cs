@@ -1,6 +1,6 @@
 using System;
 
-namespace NET_Core_API_Boilerplate
+namespace BervProject.WebApi.Boilerplate.Models
 {
     public class WeatherForecast
     {
