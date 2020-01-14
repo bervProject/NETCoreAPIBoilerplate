@@ -7,17 +7,15 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-lts'
 
 variables:
-  buildConfiguration: 'Release'
+  imageName: 'berviantoleo/net-core-boilerplate'
 
-steps:  
-- task: UseDotNet@2
-  displayName: 'Use dotnet sdk 3.x'
-  inputs:
-    version: 3.x
-    includePreviewVersions: true
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+    steps:
+  - task: Docker@2
+    displayName: Build an image
+    inputs:
+      repository: $(imageName)
+      command: build
+      Dockerfile: Dockerfile
