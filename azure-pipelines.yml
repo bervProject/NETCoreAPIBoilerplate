@@ -12,7 +12,7 @@ pool:
 variables:
   imageName: 'berviantoleo/net-core-boilerplate'
 
-    steps:
+steps:
   - task: Docker@2
     displayName: Build an image
     inputs:
