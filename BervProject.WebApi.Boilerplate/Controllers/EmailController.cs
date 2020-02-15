@@ -15,9 +15,12 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         }
 
         [HttpPost("send")]
-        public void SendEmail([FromBody] EmailSendRequest request)
+        public IActionResult SendEmail([FromBody] EmailSendRequest request)
         {
             _emailService.SendEmail(request.To);
+            return Ok(new {
+                Status = 200
+            });
         }
     }
 }
