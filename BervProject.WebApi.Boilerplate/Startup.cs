@@ -1,3 +1,5 @@
+using BervProject.WebApi.Boilerplate.ConfigModel;
+using BervProject.WebApi.Boilerplate.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,11 @@ namespace BervProject.WebApi.Boilerplate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var awsConfig = Configuration.GetSection("AWS").Get<AWSConfiguration>();
+            services.AddSingleton(awsConfig);
+
+            services.AddScoped<IEmailService, EmailService>();
+
             services.AddControllers();
         }
 
