@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.106.1" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.106.2" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="3.3.101.148" />
     <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
