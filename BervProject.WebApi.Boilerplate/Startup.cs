@@ -24,6 +24,7 @@ namespace BervProject.WebApi.Boilerplate
             services.AddSingleton(awsConfig);
 
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IDynamoDbServices, DynamoDbServices>();
 
             services.AddControllers();
         }

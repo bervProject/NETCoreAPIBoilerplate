@@ -5,5 +5,6 @@
         public AWSBasicConfiguration Basic { get; set; }
         public AWSEmailConfiguration Email { get; set; }
         public AWSNotificationConfiguration Notification { get; set; }
+        public AWSDynamoConfiguration Dynamo { get; set; }
     }
 }
