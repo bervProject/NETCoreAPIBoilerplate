@@ -2,6 +2,12 @@
 
 Net Core Web API Boilerplate for My Project
 
+## Build Status
+
+| Github Action | Azure Pipelines |
+|:-------------:|:---------------:|
+| ![Laravel](https://github.com/bervProject/NET-Core-API-Boilerplate/workflows/.NET%20Core/badge.svg) | [![Build Status](https://dev.azure.com/berviantoleo/NET-Core-WebAPI-Boilerplate/_apis/build/status/bervProject.NET-Core-API-Boilerplate?branchName=master)](https://dev.azure.com/berviantoleo/NET-Core-WebAPI-Boilerplate/_build/latest?definitionId=4&branchName=master) |
+
 ## LICENSE
 
 MIT
