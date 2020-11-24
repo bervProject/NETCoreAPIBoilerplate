@@ -1,6 +1,7 @@
 ﻿using BervProject.WebApi.Boilerplate.Models;
 using BervProject.WebApi.Boilerplate.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {
@@ -15,10 +16,11 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         }
 
         [HttpPost("send")]
-        public IActionResult SendEmail([FromBody] EmailSendRequest request)
+        public async Task<IActionResult> SendEmail([FromBody] EmailSendRequest request)
         {
-            _emailService.SendEmail(request.To);
-            return Ok(new {
+            await _emailService.SendEmail(request.To);
+            return Ok(new
+            {
                 Status = 200
             });
         }

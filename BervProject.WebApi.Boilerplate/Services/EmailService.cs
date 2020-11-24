@@ -1,11 +1,11 @@
 ﻿using Amazon;
 using Amazon.Runtime;
-using Amazon.Runtime.Internal.Util;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Services
 {
@@ -20,7 +20,7 @@ namespace BervProject.WebApi.Boilerplate.Services
             _emailClient = new AmazonSimpleEmailServiceClient(credentials, RegionEndpoint.GetBySystemName(awsConfig.Email.Location));
         }
 
-        public void SendEmail(List<string> receiver)
+        public async Task SendEmail(List<string> receiver)
         {
             var request = new SendEmailRequest()
             {
@@ -33,10 +33,9 @@ namespace BervProject.WebApi.Boilerplate.Services
                 Destination = new Destination(receiver),
                 Source = "support@berviantoleo.my.id"
             };
-            var task = _emailClient.SendEmailAsync(request);
-            task.Wait();
-            _logger.LogWarning($"Message id: {task.Result.MessageId}");
-            if (task.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            var response = await _emailClient.SendEmailAsync(request);
+            _logger.LogWarning($"Message id: {response.MessageId}");
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 _logger.LogInformation("Finished Sent Email");
             }

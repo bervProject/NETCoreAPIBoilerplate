@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BervProject.WebApi.Boilerplate.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using BervProject.WebApi.Boilerplate.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {
