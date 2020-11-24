@@ -47,12 +47,15 @@ namespace BervProject.WebApi.Boilerplate
 
             app.UseAuthorization();
 
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "api/docs/{documentName}/swagger.json";
+            });
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = "api";
+                c.SwaggerEndpoint("/api/docs/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "api/docs";
             });
 
             app.UseEndpoints(endpoints =>
