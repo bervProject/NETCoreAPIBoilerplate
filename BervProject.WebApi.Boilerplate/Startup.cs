@@ -27,7 +27,7 @@ namespace BervProject.WebApi.Boilerplate
             services.AddScoped<IDynamoDbServices, DynamoDbServices>();
 
             services.AddControllers();
-
+            services.AddApiVersioning();
             services.AddSwaggerGen();
         }
 
@@ -52,6 +52,7 @@ namespace BervProject.WebApi.Boilerplate
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "api";
             });
 
             app.UseEndpoints(endpoints =>

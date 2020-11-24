@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 namespace BervProject.WebApi.Boilerplate.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class EmailController : ControllerBase
     {
         private readonly IEmailService _emailService;
