@@ -11,20 +11,27 @@ namespace BervProject.WebApi.Boilerplate.Controllers
     [ApiVersion("1.0")]
     public class ServiceBusSenderController : ControllerBase
     {
-        private readonly IServiceBusServices _serviceBusServices;
-        public ServiceBusSenderController(IServiceBusServices serviceBusServices)
-        {
-            _serviceBusServices = serviceBusServices;
-        }
 
         [HttpPost("sendMessage")]
-        public async Task<ActionResult<MessageSenderResponse>> SendMessage([FromBody] MessageData messageData)
+        public async Task<ActionResult<MessageSenderResponse>> SendMessage([FromServices] IQueueServices queueServices, [FromBody] MessageData messageData)
         {
             var response = new MessageSenderResponse()
             {
                 YourMessage = messageData.Message
             };
-            var result = await _serviceBusServices.SendMessage(messageData.Message);
+            var result = await queueServices.SendMessage(messageData.Message);
+            response.IsSuccess = result;
+            return response;
+        }
+
+        [HttpPost("sendTopic")]
+        public async Task<ActionResult<MessageSenderResponse>> SendTopic([FromServices] ITopicServices topicServices, [FromBody] MessageData messageData)
+        {
+            var response = new MessageSenderResponse()
+            {
+                YourMessage = messageData.Message
+            };
+            var result = await topicServices.SendTopic(messageData.Message);
             response.IsSuccess = result;
             return response;
         }

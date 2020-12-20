@@ -7,27 +7,28 @@ using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Services
 {
-    public class ServiceBusConsumer : IServiceBusConsumer
+    public class ServiceBusTopicSubscription : IServiceBusTopicSubscription
     {
-        private readonly ILogger<ServiceBusConsumer> _logger;
-        private readonly string _queueName;
+        private readonly ILogger<ServiceBusTopicSubscription> _logger;
+        private readonly string _topicName;
         private readonly string _connectionString;
-        private readonly QueueClient _queueClient;
+        private readonly string _topicSubscription = "topicSubscriptionRandom";
+        private readonly SubscriptionClient _subscriptionClient;
         private readonly IProcessData _processData;
-        public ServiceBusConsumer(ILogger<ServiceBusConsumer> logger,
+        public ServiceBusTopicSubscription(ILogger<ServiceBusTopicSubscription> logger,
             IProcessData processData,
             AzureConfiguration azureConfiguration)
         {
             _logger = logger;
             _processData = processData;
             _connectionString = azureConfiguration.ServiceBus.ConnectionString;
-            _queueName = azureConfiguration.ServiceBus.QueueName;
-            _queueClient = new QueueClient(_connectionString, _queueName);
+            _topicName = azureConfiguration.ServiceBus.TopicName;
+            _subscriptionClient = new SubscriptionClient(_connectionString, _topicName, _topicSubscription);
         }
 
-        public async Task CloseQueueAsync()
+        public async Task CloseSubscriptionClientAsync()
         {
-            await _queueClient.CloseAsync();
+            await _subscriptionClient.CloseAsync();
         }
 
         public void RegisterOnMessageHandlerAndReceiveMessages()
@@ -38,16 +39,16 @@ namespace BervProject.WebApi.Boilerplate.Services
                 AutoComplete = false
             };
 
-            _logger.LogDebug($"Register queue for {_queueName}");
-            _queueClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
-            _logger.LogDebug($"Registered queue for {_queueName}");
+            _logger.LogDebug($"Register topic for {_topicName}/{_topicSubscription}");
+            _subscriptionClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
+            _logger.LogDebug($"Registered topic for {_topicName}/{_topicSubscription}");
         }
 
         private async Task ProcessMessagesAsync(Message message, CancellationToken token)
         {
             var myPayload = Encoding.UTF8.GetString(message.Body);
             _processData.Process(myPayload);
-            await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
+            await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
         }
 
         private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)

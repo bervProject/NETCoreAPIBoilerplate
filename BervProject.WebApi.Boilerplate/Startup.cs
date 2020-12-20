@@ -28,9 +28,11 @@ namespace BervProject.WebApi.Boilerplate
 
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IDynamoDbServices, DynamoDbServices>();
-            services.AddScoped<IServiceBusServices, ServiceBusServices>();
+            services.AddScoped<IQueueServices, QueueServices>();
+            services.AddScoped<ITopicServices, TopicServices>();
 
-            services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+            services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
+            services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
             services.AddTransient<IProcessData, ProcessData>();
 
             services.AddControllers();
@@ -70,8 +72,21 @@ namespace BervProject.WebApi.Boilerplate
                 endpoints.MapControllers();
             });
 
-            var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
-            bus.RegisterOnMessageHandlerAndReceiveMessages();
+            // register Consumer
+            var azureConfig = app.ApplicationServices.GetService<AzureConfiguration>();
+            var connectionString = azureConfig.ServiceBus.ConnectionString;
+            var queueName = azureConfig.ServiceBus.QueueName;
+            var topicName = azureConfig.ServiceBus.TopicName;
+            if (!string.IsNullOrWhiteSpace(queueName) && !string.IsNullOrWhiteSpace(connectionString))
+            {
+                var bus = app.ApplicationServices.GetService<IServiceBusQueueConsumer>();
+                bus.RegisterOnMessageHandlerAndReceiveMessages();
+            }
+            if (!string.IsNullOrWhiteSpace(topicName) && !string.IsNullOrWhiteSpace(connectionString))
+            {
+                var bus = app.ApplicationServices.GetService<IServiceBusTopicSubscription>();
+                bus.RegisterOnMessageHandlerAndReceiveMessages();
+            }
         }
     }
 }

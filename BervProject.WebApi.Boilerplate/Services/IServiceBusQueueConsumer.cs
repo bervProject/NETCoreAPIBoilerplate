@@ -2,7 +2,7 @@
 
 namespace BervProject.WebApi.Boilerplate.Services
 {
-    public interface IServiceBusConsumer
+    public interface IServiceBusQueueConsumer
     {
         void RegisterOnMessageHandlerAndReceiveMessages();
         Task CloseQueueAsync();

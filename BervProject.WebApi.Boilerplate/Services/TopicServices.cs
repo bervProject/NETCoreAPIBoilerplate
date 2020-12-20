@@ -7,27 +7,27 @@ using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Services
 {
-    public class ServiceBusServices : IServiceBusServices
+    public class TopicServices : ITopicServices
     {
         private readonly string _serviceBusConnectionString;
-        private readonly string _queueName;
-        private readonly QueueClient _queueClient;
-        private readonly ILogger<ServiceBusServices> _logger;
-        public ServiceBusServices(AzureConfiguration azureConfiguration, ILogger<ServiceBusServices> logger)
+        private readonly string _topicName;
+        private readonly TopicClient _topicClient;
+        private readonly ILogger<TopicServices> _logger;
+        public TopicServices(AzureConfiguration azureConfiguration, ILogger<TopicServices> logger)
         {
             _logger = logger;
             _serviceBusConnectionString = azureConfiguration.ServiceBus.ConnectionString;
-            _queueName = azureConfiguration.ServiceBus.QueueName;
-            _queueClient = new QueueClient(_serviceBusConnectionString, _queueName);
+            _topicName = azureConfiguration.ServiceBus.TopicName;
+            _topicClient = new TopicClient(_serviceBusConnectionString, _topicName);
         }
-
-        public async Task<bool> SendMessage(string message)
+        public async Task<bool> SendTopic(string message)
         {
             try
             {
-                var messageQueue = new Message(Encoding.UTF8.GetBytes(message));
+                var encodedMessage = new Message(Encoding.UTF8.GetBytes(message));
                 _logger.LogDebug($"Sending message: {message}");
-                await _queueClient.SendAsync(messageQueue);
+                await _topicClient.SendAsync(encodedMessage);
+                _logger.LogDebug($"Sent message: {message}");
                 return true;
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace BervProject.WebApi.Boilerplate.Services
             }
             finally
             {
-                await _queueClient.CloseAsync();
+                await _topicClient.CloseAsync();
             }
         }
     }
