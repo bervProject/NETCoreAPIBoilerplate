@@ -23,8 +23,15 @@ namespace BervProject.WebApi.Boilerplate
             var awsConfig = Configuration.GetSection("AWS").Get<AWSConfiguration>();
             services.AddSingleton(awsConfig);
 
+            var azureConfig = Configuration.GetSection("Azure").Get<AzureConfiguration>();
+            services.AddSingleton(azureConfig);
+
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IDynamoDbServices, DynamoDbServices>();
+            services.AddScoped<IServiceBusServices, ServiceBusServices>();
+
+            services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+            services.AddTransient<IProcessData, ProcessData>();
 
             services.AddControllers();
             services.AddApiVersioning();
@@ -62,6 +69,9 @@ namespace BervProject.WebApi.Boilerplate
             {
                 endpoints.MapControllers();
             });
+
+            var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+            bus.RegisterOnMessageHandlerAndReceiveMessages();
         }
     }
 }
