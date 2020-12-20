@@ -38,7 +38,9 @@ namespace BervProject.WebApi.Boilerplate.Services
                 AutoComplete = false
             };
 
+            _logger.LogDebug($"Register queue for {_queueName}");
             _queueClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
+            _logger.LogDebug($"Registered queue for {_queueName}");
         }
 
         private async Task ProcessMessagesAsync(Message message, CancellationToken token)
