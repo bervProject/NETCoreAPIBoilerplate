@@ -1,6 +1,6 @@
 ﻿using BervProject.WebApi.Boilerplate.Models;
 using BervProject.WebApi.Boilerplate.Models.Response;
-using BervProject.WebApi.Boilerplate.Services;
+using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
     {
 
         [HttpPost("sendMessage")]
-        public async Task<ActionResult<MessageSenderResponse>> SendMessage([FromServices] IQueueServices queueServices, [FromBody] MessageData messageData)
+        public async Task<ActionResult<MessageSenderResponse>> SendMessage([FromServices] IAzureQueueServices queueServices, [FromBody] MessageData messageData)
         {
             var response = new MessageSenderResponse()
             {

@@ -5,20 +5,19 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services
+namespace BervProject.WebApi.Boilerplate.Services.Azure
 {
-    public class QueueServices : IQueueServices
+    public class AzureQueueServices : IAzureQueueServices
     {
-        private readonly string _serviceBusConnectionString;
         private readonly string _queueName;
         private readonly QueueClient _queueClient;
-        private readonly ILogger<QueueServices> _logger;
-        public QueueServices(AzureConfiguration azureConfiguration, ILogger<QueueServices> logger)
+        private readonly ILogger<AzureQueueServices> _logger;
+        public AzureQueueServices(AzureConfiguration azureConfiguration, ILogger<AzureQueueServices> logger)
         {
             _logger = logger;
-            _serviceBusConnectionString = azureConfiguration.ServiceBus.ConnectionString;
             _queueName = azureConfiguration.ServiceBus.QueueName;
-            _queueClient = new QueueClient(_serviceBusConnectionString, _queueName);
+            var serviceBusConnectionString = azureConfiguration.ServiceBus.ConnectionString;
+            _queueClient = new QueueClient(serviceBusConnectionString, _queueName);
         }
 
         public async Task<bool> SendMessage(string message)

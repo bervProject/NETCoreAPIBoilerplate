@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services
+namespace BervProject.WebApi.Boilerplate.Services.Azure
 {
-    public interface IQueueServices
+    public interface IAzureQueueServices
     {
         Task<bool> SendMessage(string message);
     }

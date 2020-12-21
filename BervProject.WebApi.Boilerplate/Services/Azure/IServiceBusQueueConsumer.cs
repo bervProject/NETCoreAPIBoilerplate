@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services
+namespace BervProject.WebApi.Boilerplate.Services.Azure
 {
     public interface IServiceBusQueueConsumer
     {

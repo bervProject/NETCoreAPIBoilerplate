@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services
+namespace BervProject.WebApi.Boilerplate.Services.AWS
 {
     public class DynamoDbServices : IDynamoDbServices
     {

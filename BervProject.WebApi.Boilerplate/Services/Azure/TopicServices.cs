@@ -5,20 +5,19 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services
+namespace BervProject.WebApi.Boilerplate.Services.Azure
 {
     public class TopicServices : ITopicServices
     {
-        private readonly string _serviceBusConnectionString;
         private readonly string _topicName;
         private readonly TopicClient _topicClient;
         private readonly ILogger<TopicServices> _logger;
         public TopicServices(AzureConfiguration azureConfiguration, ILogger<TopicServices> logger)
         {
             _logger = logger;
-            _serviceBusConnectionString = azureConfiguration.ServiceBus.ConnectionString;
             _topicName = azureConfiguration.ServiceBus.TopicName;
-            _topicClient = new TopicClient(_serviceBusConnectionString, _topicName);
+            var serviceBusConnectionString = azureConfiguration.ServiceBus.ConnectionString;
+            _topicClient = new TopicClient(serviceBusConnectionString, _topicName);
         }
         public async Task<bool> SendTopic(string message)
         {

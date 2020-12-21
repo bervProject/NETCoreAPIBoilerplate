@@ -1,0 +1,12 @@
+2020-12-21 20:23:14.2910 Info Message Template Auto Format enabled
+2020-12-21 20:23:14.3073 Info Loading assembly: NLog.Web.AspNetCore
+2020-12-21 20:23:14.3721 Info Adding target FileTarget(Name=allfile)
+2020-12-21 20:23:14.3736 Info Adding target ConsoleTarget(Name=logconsole)
+2020-12-21 20:23:14.3994 Info Adding target FileTarget(Name=ownFile-web)
+2020-12-21 20:23:14.4612 Info Validating config: TargetNames=allfile, ownFile-web, logconsole, ConfigItems=57, FilePath=D:\Projects\Github\NET-Core-API-Boilerplate\BervProject.WebApi.Boilerplate\bin\Debug\net5.0\NLog.config
+2020-12-21 20:24:24.1884 Info Message Template Auto Format enabled
+2020-12-21 20:24:24.5411 Info Loading assembly: NLog.Web.AspNetCore
+2020-12-21 20:24:24.6277 Info Adding target FileTarget(Name=allfile)
+2020-12-21 20:24:24.6277 Info Adding target ConsoleTarget(Name=logconsole)
+2020-12-21 20:24:24.6418 Info Adding target FileTarget(Name=ownFile-web)
+2020-12-21 20:24:24.7195 Info Validating config: TargetNames=allfile, ownFile-web, logconsole, ConfigItems=57, FilePath=D:\Projects\Github\NET-Core-API-Boilerplate\BervProject.WebApi.Boilerplate\bin\Debug\net5.0\NLog.config

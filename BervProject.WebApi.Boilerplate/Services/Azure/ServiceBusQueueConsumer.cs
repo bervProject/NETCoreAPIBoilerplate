@@ -5,30 +5,28 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services
+namespace BervProject.WebApi.Boilerplate.Services.Azure
 {
-    public class ServiceBusTopicSubscription : IServiceBusTopicSubscription
+    public class ServiceBusQueueConsumer : IServiceBusQueueConsumer
     {
-        private readonly ILogger<ServiceBusTopicSubscription> _logger;
-        private readonly string _topicName;
-        private readonly string _connectionString;
-        private readonly string _topicSubscription = "topicSubscriptionRandom";
-        private readonly SubscriptionClient _subscriptionClient;
+        private readonly ILogger<ServiceBusQueueConsumer> _logger;
+        private readonly string _queueName;
+        private readonly QueueClient _queueClient;
         private readonly IProcessData _processData;
-        public ServiceBusTopicSubscription(ILogger<ServiceBusTopicSubscription> logger,
+        public ServiceBusQueueConsumer(ILogger<ServiceBusQueueConsumer> logger,
             IProcessData processData,
             AzureConfiguration azureConfiguration)
         {
             _logger = logger;
             _processData = processData;
-            _connectionString = azureConfiguration.ServiceBus.ConnectionString;
-            _topicName = azureConfiguration.ServiceBus.TopicName;
-            _subscriptionClient = new SubscriptionClient(_connectionString, _topicName, _topicSubscription);
+            _queueName = azureConfiguration.ServiceBus.QueueName;
+            var connectionString = azureConfiguration.ServiceBus.ConnectionString;
+            _queueClient = new QueueClient(connectionString, _queueName);
         }
 
-        public async Task CloseSubscriptionClientAsync()
+        public async Task CloseQueueAsync()
         {
-            await _subscriptionClient.CloseAsync();
+            await _queueClient.CloseAsync();
         }
 
         public void RegisterOnMessageHandlerAndReceiveMessages()
@@ -39,16 +37,16 @@ namespace BervProject.WebApi.Boilerplate.Services
                 AutoComplete = false
             };
 
-            _logger.LogDebug($"Register topic for {_topicName}/{_topicSubscription}");
-            _subscriptionClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
-            _logger.LogDebug($"Registered topic for {_topicName}/{_topicSubscription}");
+            _logger.LogDebug($"Register queue for {_queueName}");
+            _queueClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
+            _logger.LogDebug($"Registered queue for {_queueName}");
         }
 
         private async Task ProcessMessagesAsync(Message message, CancellationToken token)
         {
             var myPayload = Encoding.UTF8.GetString(message.Body);
             _processData.Process(myPayload);
-            await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
+            await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
         }
 
         private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)

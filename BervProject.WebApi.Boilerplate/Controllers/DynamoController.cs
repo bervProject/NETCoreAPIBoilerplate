@@ -1,4 +1,4 @@
-﻿using BervProject.WebApi.Boilerplate.Services;
+﻿using BervProject.WebApi.Boilerplate.Services.AWS;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

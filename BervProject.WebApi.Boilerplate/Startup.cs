@@ -1,5 +1,7 @@
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.Services;
+using BervProject.WebApi.Boilerplate.Services.AWS;
+using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,8 +30,9 @@ namespace BervProject.WebApi.Boilerplate
 
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IDynamoDbServices, DynamoDbServices>();
-            services.AddScoped<IQueueServices, QueueServices>();
+            services.AddScoped<IAzureQueueServices, AzureQueueServices>();
             services.AddScoped<ITopicServices, TopicServices>();
+            services.AddScoped<IAzureStorageQueueService, AzureStorageQueueService>();
 
             services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
             services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
