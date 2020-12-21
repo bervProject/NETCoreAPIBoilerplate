@@ -16,8 +16,8 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
         public AzureStorageQueueService(ILogger<AzureStorageQueueService> logger, AzureConfiguration azureConfiguration)
         {
             _logger = logger;
-            _queueName = azureConfiguration.QueueStorage.QueueName;
-            var connectionString = azureConfiguration.QueueStorage.ConnectionString;
+            _queueName = azureConfiguration.Storage.Queue.QueueName;
+            var connectionString = azureConfiguration.Storage.Queue.ConnectionString;
             _queueClient = new QueueClient(connectionString, _queueName);
             _queueClient.CreateIfNotExists();
         }
