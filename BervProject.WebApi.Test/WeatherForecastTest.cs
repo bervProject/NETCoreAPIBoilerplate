@@ -1,5 +1,4 @@
 using BervProject.WebApi.Boilerplate.Controllers;
-using System;
 using System.Linq;
 using Xunit;
 

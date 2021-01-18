@@ -1,9 +1,7 @@
-﻿using Amazon.Runtime.Internal.Util;
-using Azure.Storage.Queues;
+﻿using Azure.Storage.Queues;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace BervProject.WebApi.Boilerplate.Services.Azure
 {

@@ -25,7 +25,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         [HttpGet("list")]
         public IActionResult ListBlob()
         {
-            var info =_blobService.GetBlobsInfo();
+            var info = _blobService.GetBlobsInfo();
             return Ok(info);
         }
 

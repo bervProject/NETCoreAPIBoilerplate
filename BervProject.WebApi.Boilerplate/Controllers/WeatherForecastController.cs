@@ -1,5 +1,8 @@
-﻿using BervProject.WebApi.Boilerplate.Models;
+﻿using BervProject.WebApi.Boilerplate.Entities;
+using BervProject.WebApi.Boilerplate.EntityFramework;
+using BervProject.WebApi.Boilerplate.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
@@ -47,6 +50,46 @@ namespace BervProject.WebApi.Boilerplate.Controllers
                 Console.WriteLine(result);
             }
             return Ok(result);
+        }
+
+        [HttpGet("db")]
+        public IActionResult GetDb([FromServices] BoilerplateDbContext dbContext)
+        {
+            var booksQuery = dbContext.Books.AsQueryable();
+            var books = booksQuery.Where(x => x.Name.Equals("Halleluya")).Include(x => x.Publisher).ToList();
+            if (books.Count == 0)
+            {
+                var listBooks = new List<Book>()
+                {
+                    new Book()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Halleluya",
+                        Publisher = new Publisher()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "Heaven Publisher"
+                        }
+                    },
+                    new Book()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Halleluya 2",
+                        Publisher = new Publisher()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "Heaven Publisher"
+                        }
+                    }
+                };
+                dbContext.Books.AddRange(listBooks);
+                dbContext.SaveChanges();
+                return Ok(listBooks);
+            }
+            else
+            {
+                return Ok(books);
+            }
         }
     }
 }
