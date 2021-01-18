@@ -39,6 +39,11 @@ namespace BervProject.WebApi.Boilerplate
             services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
             services.AddTransient<IProcessData, ProcessData>();
 
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration["Redis:ConnectionString"];
+            });
+
             services.AddControllers();
             services.AddApiVersioning();
             services.AddSwaggerGen();
