@@ -4,9 +4,9 @@ Net Core Web API Boilerplate for My Project
 
 ## Build Status
 
-| Github Action | Azure Pipelines |
+| Github Action (Build & Dockerize) | Azure Pipelines |
 |:-------------:|:---------------:|
-| ![Net Core](https://github.com/bervProject/NETCoreAPIBoilerplate/workflows/.NET%20Core/badge.svg) | [![Build Status](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_apis/build/status/bervProject.NETCoreAPIBoilerplate?branchName=master)](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_build/latest?definitionId=6&branchName=master) |
+| ![Build&Dockerize](https://github.com/bervProject/NETCoreAPIBoilerplate/workflows/Build&Dockerize/badge.svg) | [![Build Status](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_apis/build/status/bervProject.NETCoreAPIBoilerplate?branchName=master)](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_build/latest?definitionId=6&branchName=master) |
 
 ## LICENSE
 
