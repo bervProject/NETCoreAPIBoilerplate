@@ -6,7 +6,7 @@ Net Core Web API Boilerplate for My Project
 
 | Github Action | Azure Pipelines |
 |:-------------:|:---------------:|
-| ![Net Core](https://github.com/bervProject/NETCoreAPIBoilerplate/workflows/.NET%20Core/badge.svg) | [![Build Status](https://dev.azure.com/berviantoleo/NET-Core-WebAPI-Boilerplate/_apis/build/status/bervProject.NET-Core-API-Boilerplate?branchName=master)](https://dev.azure.com/berviantoleo/NET-Core-WebAPI-Boilerplate/_build/latest?definitionId=4&branchName=master) |
+| ![Net Core](https://github.com/bervProject/NETCoreAPIBoilerplate/workflows/.NET%20Core/badge.svg) | [![Build Status](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_apis/build/status/bervProject.NETCoreAPIBoilerplate?branchName=master)](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_build/latest?definitionId=6&branchName=master) |
 
 ## LICENSE
 
