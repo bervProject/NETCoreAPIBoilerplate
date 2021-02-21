@@ -1,6 +1,7 @@
 ﻿using BervProject.WebApi.Boilerplate.Entities;
 using BervProject.WebApi.Boilerplate.EntityFramework;
 using BervProject.WebApi.Boilerplate.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -21,13 +22,17 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public WeatherForecastController()
+        private readonly TelemetryClient telemetryClient;
+
+        public WeatherForecastController(TelemetryClient telemetryClient)
         {
+            this.telemetryClient = telemetryClient;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            this.telemetryClient.TrackEvent("WeatherQueried");
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

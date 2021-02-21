@@ -46,6 +46,8 @@ namespace BervProject.WebApi.Boilerplate
                 options.Configuration = Configuration["Redis:ConnectionString"];
             });
 
+            services.AddApplicationInsightsTelemetry();
+
             services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("BoilerplateConnectionString")));
 
             services.AddControllers();
