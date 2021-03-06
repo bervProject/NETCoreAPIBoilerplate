@@ -26,6 +26,16 @@ jobs:
       run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
     - name: Report Codecov
       run: bash <(curl -s https://codecov.io/bash)
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: csharp
+    # Here is where you build your code
+    - run: |
+      make bootstrap
+      make release
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
   docker-test:
     runs-on: ubuntu-20.04
     needs: build
