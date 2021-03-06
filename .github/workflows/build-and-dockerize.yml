@@ -30,11 +30,8 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: csharp
-    # Here is where you build your code
-    #- name: Build Code
-    #  run: |
-    #    make bootstrap
-    #    make release
+    - name: Autobuild
+        uses: github/codeql-action/autobuild@v1
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
   docker-test:
