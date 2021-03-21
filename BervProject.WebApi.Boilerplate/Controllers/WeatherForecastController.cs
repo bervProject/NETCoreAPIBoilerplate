@@ -44,7 +44,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         }
 
         [HttpGet("cache")]
-        public IActionResult GetCache([FromServices] IDistributedCache distributedCache)
+        public ActionResult<byte[]> GetCache([FromServices] IDistributedCache distributedCache)
         {
             var result = distributedCache.Get("MyCache");
             if (result == null || result.Length == 0)
@@ -54,7 +54,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
                 result = distributedCache.Get("MyCache");
                 Console.WriteLine(result);
             }
-            return Ok(result);
+            return result;
         }
 
         [HttpGet("db")]
