@@ -1,6 +1,5 @@
+using Autofac.Extras.Moq;
 using BervProject.WebApi.Boilerplate.Controllers;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using System.Linq;
 using Xunit;
 
@@ -11,13 +10,12 @@ namespace BervProject.WebApi.Test
         [Fact]
         public void GetTest()
         {
-            var telemetryConfig = new TelemetryConfiguration("");
-            var telemetryClient = new TelemetryClient(telemetryConfig);
-            var controller = new WeatherForecastController(telemetryClient);
-
-            var result = controller.Get();
-
-            Assert.Equal(5, result.Count());
+            using (var mock = AutoMock.GetLoose())
+            {
+                var controller = mock.Create<WeatherForecastController>();
+                var result = controller.Get();
+                Assert.Equal(5, result.Count());
+            }
         }
     }
 }
