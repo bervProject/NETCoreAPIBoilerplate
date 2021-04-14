@@ -3,6 +3,8 @@ using BervProject.WebApi.Boilerplate.EntityFramework;
 using BervProject.WebApi.Boilerplate.Services;
 using BervProject.WebApi.Boilerplate.Services.AWS;
 using BervProject.WebApi.Boilerplate.Services.Azure;
+using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +51,8 @@ namespace BervProject.WebApi.Boilerplate
             services.AddApplicationInsightsTelemetry();
 
             services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("BoilerplateConnectionString")));
-
+            services.AddHangfire(x => x.UsePostgreSqlStorage(Configuration.GetConnectionString("BoilerplateConnectionString")));
+            services.AddHangfireServer();
             services.AddControllers();
             services.AddApiVersioning();
             services.AddSwaggerGen();
@@ -85,6 +88,7 @@ namespace BervProject.WebApi.Boilerplate
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
 
             // register Consumer
