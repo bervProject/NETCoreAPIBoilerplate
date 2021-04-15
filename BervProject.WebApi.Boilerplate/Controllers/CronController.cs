@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using BervProject.WebApi.Boilerplate.Services;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -12,14 +13,14 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         [HttpPost("CreateCronOnce")]
         public IActionResult CreateCronOnce([FromServices] IBackgroundJobClient backgroundJobClient)
         {
-            backgroundJobClient.Enqueue(() => Console.WriteLine("Hello World! Hangfire!"));
+            backgroundJobClient.Enqueue<ICronService>((x) => x.HelloWorld());
             return Ok();
         }
 
         [HttpPost("CreateRecurance")]
         public IActionResult CreateRecurance([FromServices] IRecurringJobManager recurringJobManager)
         {
-            recurringJobManager.AddOrUpdate("HelloWorld", () => Console.WriteLine("Hello World, Hourly! Hangfire!"), Cron.Hourly);
+            recurringJobManager.AddOrUpdate<ICronService>("HelloWorld", (x) => x.HelloWorld(), Cron.Hourly);
             return Ok();
         }
     }

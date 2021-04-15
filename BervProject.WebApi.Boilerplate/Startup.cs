@@ -38,6 +38,7 @@ namespace BervProject.WebApi.Boilerplate
             services.AddScoped<ITopicServices, TopicServices>();
             services.AddScoped<IAzureStorageQueueService, AzureStorageQueueService>();
             services.AddScoped<IBlobService, BlobService>();
+            services.AddScoped<ICronService, CronService>();
 
             services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
             services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
