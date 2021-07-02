@@ -37,6 +37,14 @@ jobs:
       uses: github/codeql-action/autobuild@v1
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+  build-docker-test:
+    runs-on: ubuntu-20.04
+    if: github.event_name == 'pull_request'
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Image
+        run: docker build . -t $IMAGE_NAME
   build-push-docker:
     runs-on: ubuntu-20.04
     if: github.event_name == 'push'
