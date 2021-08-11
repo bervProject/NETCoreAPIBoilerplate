@@ -28,7 +28,7 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
         public List<Dictionary<string, string>> GetBlobsInfo()
         {
             var list = new List<Dictionary<string, string>>();
-            if (_blobContainerClient.Exists())
+            if (_blobContainerClient.Exists().Value)
             {
                 var blobs = _blobContainerClient.GetBlobs();
                 foreach (var blob in blobs)
