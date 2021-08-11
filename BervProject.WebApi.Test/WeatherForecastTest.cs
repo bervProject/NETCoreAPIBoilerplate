@@ -2,6 +2,7 @@ using Autofac.Extras.Moq;
 using BervProject.WebApi.Boilerplate.Controllers;
 using Microsoft.Extensions.Caching.Distributed;
 using Moq;
+using System;
 using System.Linq;
 using System.Text;
 using Xunit;
@@ -41,6 +42,15 @@ namespace BervProject.WebApi.Test
             var controller = mock.Create<WeatherForecastController>();
             var result = controller.GetCache(cacheMock);
             Assert.Equal(expectedByte, result.Value);
+        }
+
+        [Fact]
+        public void TriggerExceptionTest()
+        {
+            using var mock = AutoMock.GetLoose();
+            var controller = mock.Create<WeatherForecastController>();
+            var result = Assert.Throws<Exception>(() => controller.TriggerException());
+            Assert.Equal("Unhandled Exception", result.Message);
         }
     }
 }

@@ -8,6 +8,7 @@ using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +33,11 @@ namespace BervProject.WebApi.Boilerplate
             var azureConfig = Configuration.GetSection("Azure").Get<AzureConfiguration>();
             services.AddSingleton(azureConfig);
 
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(azureConfig.Storage.Blob.ConnectionString);
+            });
+
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IDynamoDbServices, DynamoDbServices>();
             services.AddScoped<IAzureQueueServices, AzureQueueServices>();
@@ -54,6 +60,7 @@ namespace BervProject.WebApi.Boilerplate
             services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("BoilerplateConnectionString")));
             services.AddHangfire(x => x.UsePostgreSqlStorage(Configuration.GetConnectionString("BoilerplateConnectionString")));
             services.AddHangfireServer();
+
             services.AddControllers();
             services.AddApiVersioning();
             services.AddSwaggerGen();

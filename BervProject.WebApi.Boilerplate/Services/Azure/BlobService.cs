@@ -11,12 +11,11 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
         private readonly ILogger<BlobService> _logger;
         private readonly BlobContainerClient _blobContainerClient;
         private readonly string _containerName;
-        public BlobService(ILogger<BlobService> logger, AzureConfiguration azureConfiguration)
+        public BlobService(ILogger<BlobService> logger, AzureConfiguration azureConfiguration, BlobServiceClient blobServiceClient)
         {
             _logger = logger;
             _containerName = azureConfiguration.Storage.Blob.ContainerName;
-            var storageClient = azureConfiguration.Storage.Blob.ConnectionString;
-            _blobContainerClient = new BlobContainerClient(storageClient, _containerName);
+            _blobContainerClient = blobServiceClient.GetBlobContainerClient(_containerName);
         }
 
         public void CreateStorageContainer()
