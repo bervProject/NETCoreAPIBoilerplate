@@ -68,6 +68,7 @@ namespace BervProject.WebApi.Boilerplate
             }
             else
             {
+                app.UseExceptionHandler("/error");
                 app.UseHttpsRedirection();
             }
 

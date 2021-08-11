@@ -96,5 +96,11 @@ namespace BervProject.WebApi.Boilerplate.Controllers
                 return Ok(books);
             }
         }
+
+        [HttpGet("triggerException")]
+        public IActionResult TriggerException()
+        {
+            throw new Exception("Unhandled Exception");
+        }
     }
 }
