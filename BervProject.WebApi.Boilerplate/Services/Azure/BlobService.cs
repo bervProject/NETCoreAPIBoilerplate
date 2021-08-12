@@ -53,14 +53,13 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
 
         public void UploadFile(IFormFile formFile)
         {
-            if (_blobContainerClient.Exists())
+            if (_blobContainerClient.Exists().Value)
             {
                 var fileName = formFile.FileName;
-                var blobClient = _blobContainerClient.GetBlobClient(fileName);
                 using (var stream = formFile.OpenReadStream())
                 {
                     _logger.LogDebug($"Uploading {fileName}");
-                    blobClient.Upload(stream, true);
+                    _blobContainerClient.UploadBlob(fileName, stream);
                 }
                 _logger.LogDebug($"{fileName} uploaded");
             }
