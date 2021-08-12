@@ -28,7 +28,7 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
         public List<Dictionary<string, string>> GetBlobsInfo()
         {
             var list = new List<Dictionary<string, string>>();
-            if (_blobContainerClient.Exists().Value)
+            if (_blobContainerClient.Exists())
             {
                 var blobs = _blobContainerClient.GetBlobs();
                 foreach (var blob in blobs)
@@ -53,7 +53,7 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
 
         public void UploadFile(IFormFile formFile)
         {
-            if (_blobContainerClient.Exists().Value)
+            if (_blobContainerClient.Exists())
             {
                 var fileName = formFile.FileName;
                 using (var stream = formFile.OpenReadStream())
