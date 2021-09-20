@@ -9,7 +9,7 @@
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.69" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.0.67" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.0.68" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.8.0" />
     <PackageReference Include="Hangfire" Version="1.7.25" />
