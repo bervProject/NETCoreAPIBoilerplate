@@ -12,13 +12,14 @@ pool:
 variables:
   buildConfiguration: 'Release'
   imageName: 'berviantoleo/net-core-boilerplate'
-  dotnetSdkVersion: '5.0.x'
+  dotnetSdkVersion: '6.0.x'
 
 steps:
 - task: UseDotNet@2
   displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
   inputs:
     version: '$(dotnetSdkVersion)'
+    includePreviewVersions: true
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
   inputs:
