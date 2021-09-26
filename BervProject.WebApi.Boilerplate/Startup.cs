@@ -1,3 +1,4 @@
+using Amazon.S3;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
 using BervProject.WebApi.Boilerplate.Services;
@@ -45,7 +46,9 @@ namespace BervProject.WebApi.Boilerplate
             services.AddScoped<IAzureStorageQueueService, AzureStorageQueueService>();
             services.AddScoped<IBlobService, BlobService>();
             services.AddScoped<ICronService, CronService>();
+            services.AddScoped<IAWSS3Service, AWSS3Service>();
 
+            services.AddAWSService<IAmazonS3>();
             services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
             services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
             services.AddTransient<IProcessData, ProcessData>();
