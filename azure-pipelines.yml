@@ -43,11 +43,8 @@ steps:
   inputs:
     codeCoverageTool: 'cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
-- displayName: 'Publish to Codecov'
-  script: |
-    curl -Os https://uploader.codecov.io/latest/linux/codecov
-    chmod +x codecov
-    ./codecov
+- script: curl -Os https://uploader.codecov.io/latest/linux/codecov && chmod +x codecov && ./codecov
+  displayName: 'Publish to Codecov'
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
