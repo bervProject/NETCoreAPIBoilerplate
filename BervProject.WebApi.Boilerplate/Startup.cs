@@ -1,3 +1,4 @@
+using Amazon.DynamoDBv2;
 using Amazon.S3;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
@@ -49,6 +50,7 @@ namespace BervProject.WebApi.Boilerplate
             services.AddScoped<IAWSS3Service, AWSS3Service>();
 
             services.AddAWSService<IAmazonS3>();
+            services.AddAWSService<IAmazonDynamoDB>();
             services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
             services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
             services.AddTransient<IProcessData, ProcessData>();

@@ -1,7 +1,5 @@
-﻿using Amazon;
-using Amazon.DynamoDBv2;
+﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,13 +11,12 @@ namespace BervProject.WebApi.Boilerplate.Services.AWS
 {
     public class DynamoDbServices : IDynamoDbServices
     {
-        private readonly AmazonDynamoDBClient _dynamoClient;
+        private readonly IAmazonDynamoDB _dynamoClient;
         private readonly ILogger<DynamoDbServices> _logger;
-        public DynamoDbServices(AWSConfiguration awsConfiguration, ILogger<DynamoDbServices> logger)
+        public DynamoDbServices(IAmazonDynamoDB amazonDynamoDb, ILogger<DynamoDbServices> logger)
         {
             _logger = logger;
-            var credential = new BasicAWSCredentials(awsConfiguration.Basic.Auth.AccessKey, awsConfiguration.Basic.Auth.SecretKey);
-            _dynamoClient = new AmazonDynamoDBClient(credential, RegionEndpoint.GetBySystemName(awsConfiguration.Dynamo.Location));
+            _dynamoClient = amazonDynamoDb;
         }
 
         public async Task CreateObject()

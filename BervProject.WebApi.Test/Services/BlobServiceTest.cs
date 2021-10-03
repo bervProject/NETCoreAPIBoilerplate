@@ -81,7 +81,7 @@ namespace BervProject.WebApi.Test.Services
             var mockContainer = mock.Mock<BlobContainerClient>();
             var fileMock = mock.Mock<IFormFile>();
             var nullStream = new MemoryStream(0);
-            blobServiceClient.Setup(x => x.GetBlobContainerClient("")).Returns(mockContainer.Object);            
+            blobServiceClient.Setup(x => x.GetBlobContainerClient("")).Returns(mockContainer.Object);
             mockContainer.Setup(x => x.Exists(default).Value).Returns(true);
             var fileName = "Dummy";
             fileMock.SetupGet(x => x.FileName).Returns(fileName);
