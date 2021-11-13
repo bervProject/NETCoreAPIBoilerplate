@@ -57,6 +57,16 @@ namespace BervProject.WebApi.Test.Services
             var emailService = mock.Create<EmailService>();
             await emailService.SendEmail(reciever);
             mockEmailService.Verify(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default), Times.Once());
+            logMock.Verify(l =>
+                l.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, type) => state.ToString().Equals("There is a problem when sending email")),
+                    null,
+                    (Func<object, Exception, string>)It.IsAny<object>()
+                    ),
+                    Times.Once()
+            );
         }
     }
 }

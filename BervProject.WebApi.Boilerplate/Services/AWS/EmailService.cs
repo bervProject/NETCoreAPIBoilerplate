@@ -33,7 +33,7 @@ namespace BervProject.WebApi.Boilerplate.Services.AWS
             };
             var response = await _emailClient.SendEmailAsync(request);
             string messageId = $"Message id: {response.MessageId}";
-            _logger.LogWarning(messageId);
+            _logger.LogDebug(messageId);
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 _logger.LogInformation("Finished Sent Email");
