@@ -48,6 +48,7 @@ builder.Services.AddScoped<IAWSS3Service, AWSS3Service>();
 builder.Services.AddAzureClients(builder =>
 {
     builder.AddBlobServiceClient(azureConfig.Storage.Blob.ConnectionString);
+    builder.AddQueueServiceClient(azureConfig.Storage.Queue.ConnectionString);
 });
 builder.Services.AddScoped<IAzureQueueServices, AzureQueueServices>();
 builder.Services.AddScoped<ITopicServices, TopicServices>();

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace BervProject.WebApi.Test.Services
+namespace BervProject.WebApi.Test.Services.AWS
 {
     public class EmailServiceTest
     {

@@ -10,7 +10,7 @@ using Moq;
 using System.IO;
 using Xunit;
 
-namespace BervProject.WebApi.Test.Services
+namespace BervProject.WebApi.Test.Services.Azure
 {
     public class BlobServiceTest
     {

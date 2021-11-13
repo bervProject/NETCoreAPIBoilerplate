@@ -11,12 +11,13 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
         private readonly QueueClient _queueClient;
         private readonly string _queueName;
 
-        public AzureStorageQueueService(ILogger<AzureStorageQueueService> logger, AzureConfiguration azureConfiguration)
+        public AzureStorageQueueService(ILogger<AzureStorageQueueService> logger,
+            AzureConfiguration azureConfiguration,
+            QueueServiceClient queueServiceClient)
         {
             _logger = logger;
             _queueName = azureConfiguration.Storage.Queue.QueueName;
-            var connectionString = azureConfiguration.Storage.Queue.ConnectionString;
-            _queueClient = new QueueClient(connectionString, _queueName);
+            _queueClient = queueServiceClient.GetQueueClient(_queueName);
             _queueClient.CreateIfNotExists();
         }
 
@@ -51,7 +52,7 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Something Error, ignoring");
                 return null;
             }
         }

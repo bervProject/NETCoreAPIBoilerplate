@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace BervProject.WebApi.Test.Services
+namespace BervProject.WebApi.Test.Services.AWS
 {
     public class DynamoDbServicesTest
     {
