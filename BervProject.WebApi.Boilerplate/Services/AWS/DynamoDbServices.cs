@@ -1,6 +1,5 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using BervProject.WebApi.Boilerplate.ConfigModel;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -37,7 +36,8 @@ namespace BervProject.WebApi.Boilerplate.Services.AWS
                 }
             };
             var response = await _dynamoClient.PutItemAsync(request);
-            _logger.LogInformation($"Response: {response.HttpStatusCode.ToString()}, {JsonSerializer.Serialize(response.Attributes)}");
+            string message = $"Response: {response.HttpStatusCode}, {JsonSerializer.Serialize(response.Attributes)}";
+            _logger.LogInformation(message);
         }
     }
 }

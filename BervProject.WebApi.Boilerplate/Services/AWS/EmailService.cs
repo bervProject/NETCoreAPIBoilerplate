@@ -1,23 +1,21 @@
-﻿using Amazon;
-using Amazon.Runtime;
-using Amazon.SimpleEmail;
+﻿using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
-using BervProject.WebApi.Boilerplate.ConfigModel;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Services.AWS
 {
     public class EmailService : IEmailService
     {
-        private readonly AmazonSimpleEmailServiceClient _emailClient;
+        private readonly IAmazonSimpleEmailService _emailClient;
         private readonly ILogger<EmailService> _logger;
-        public EmailService(ILogger<EmailService> logger, AWSConfiguration awsConfig)
+        public EmailService(ILogger<EmailService> logger, IAmazonSimpleEmailService emailClient)
         {
             _logger = logger;
-            var credentials = new BasicAWSCredentials(awsConfig.Basic.Auth.AccessKey, awsConfig.Basic.Auth.SecretKey);
-            _emailClient = new AmazonSimpleEmailServiceClient(credentials, RegionEndpoint.GetBySystemName(awsConfig.Email.Location));
+            _emailClient = emailClient;
         }
 
         public async Task SendEmail(List<string> receiver)
@@ -34,7 +32,8 @@ namespace BervProject.WebApi.Boilerplate.Services.AWS
                 Source = "support@berviantoleo.my.id"
             };
             var response = await _emailClient.SendEmailAsync(request);
-            _logger.LogWarning($"Message id: {response.MessageId}");
+            string messageId = $"Message id: {response.MessageId}";
+            _logger.LogWarning(messageId);
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 _logger.LogInformation("Finished Sent Email");
@@ -42,6 +41,8 @@ namespace BervProject.WebApi.Boilerplate.Services.AWS
             else
             {
                 _logger.LogWarning("There is a problem when sending email");
+                string message = $"Error: {response.MessageId}:{response.HttpStatusCode}:{JsonSerializer.Serialize(response.ResponseMetadata.Metadata)}";
+                _logger.LogWarning(message);
             }
         }
     }

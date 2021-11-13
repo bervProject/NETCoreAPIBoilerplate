@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.S3;
+using Amazon.SimpleEmail;
 using Autofac.Extensions.DependencyInjection;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
@@ -36,11 +37,12 @@ var azureConfig = builder.Configuration.GetSection("Azure").Get<AzureConfigurati
 builder.Services.AddSingleton(azureConfig);
 
 // aws services
+builder.Services.AddAWSService<IAmazonS3>();
+builder.Services.AddAWSService<IAmazonDynamoDB>();
+builder.Services.AddAWSService<IAmazonSimpleEmailService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IDynamoDbServices, DynamoDbServices>();
 builder.Services.AddScoped<IAWSS3Service, AWSS3Service>();
-builder.Services.AddAWSService<IAmazonS3>();
-builder.Services.AddAWSService<IAmazonDynamoDB>();
 
 // azure services
 builder.Services.AddAzureClients(builder =>
