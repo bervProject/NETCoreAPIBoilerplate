@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29318.209
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BervProject.WebApi.Boilerplate", "BervProject.WebApi.Boilerplate\BervProject.WebApi.Boilerplate.csproj", "{61F9CED4-DF01-40F5-A126-DE9F73C7AA89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BervProject.WebApi.Test", "BervProject.WebApi.Test\BervProject.WebApi.Test.csproj", "{CE1B1BF2-9EF2-4C07-902F-817D81EFD22E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BervProject.WebApi.Test", "BervProject.WebApi.Test\BervProject.WebApi.Test.csproj", "{CE1B1BF2-9EF2-4C07-902F-817D81EFD22E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
