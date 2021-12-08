@@ -23,6 +23,11 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: csharp
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+        include-prerelease: true
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
     - name: Perform CodeQL Analysis
