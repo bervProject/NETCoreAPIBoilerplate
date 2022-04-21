@@ -11,7 +11,7 @@
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.26" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.8.23" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.0.149" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.0.150" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.11.0" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.9.0" />
     <PackageReference Include="Hangfire" Version="1.7.28" />
