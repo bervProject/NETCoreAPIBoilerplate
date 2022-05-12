@@ -68,8 +68,8 @@ jobs:
       command: build
       Dockerfile: Dockerfile
 
-- job: "CodeQuality"
-  pool:
-    vmImage: "windows-2022"
-  steps:
-  - task: NDependTask@1
+# - job: "CodeQuality"
+#  pool:
+#    vmImage: "windows-2022"
+#  steps:
+#  - task: NDependTask@1
