@@ -28,4 +28,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95F60BDF-4C1C-46AA-816D-E645235051C5}
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\BervProject.WebApi.Boilerplate.ndproj"
+	EndGlobalSection
 EndGlobal
