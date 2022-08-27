@@ -40,10 +40,6 @@ jobs:
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
       projects: '**/*.Test.csproj'
-  - task: NDependTask@1
-    displayName: 'Analyze with NDepend'
-    env:
-      SYSTEM_ACCESSTOKEN: $(system.accesstoken)
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage report'
     inputs:
