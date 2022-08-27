@@ -73,3 +73,6 @@ jobs:
     vmImage: "windows-2022"
   steps:
   - task: NDependTask@1
+    env:
+      SYSTEM_ACCESSTOKEN: $(system.accesstoken)
+
