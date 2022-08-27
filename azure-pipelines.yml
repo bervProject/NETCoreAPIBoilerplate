@@ -72,6 +72,22 @@ jobs:
   pool:
     vmImage: "windows-2022"
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
+    inputs:
+      version: '$(dotnetSdkVersion)'
+      includePreviewVersions: true
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore project dependencies'
+    inputs:
+      command: 'restore'
+      projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: 'Build the project - $(buildConfiguration)'
+    inputs:
+      command: 'build'
+      arguments: '--no-restore --configuration $(buildConfiguration)'
+      projects: '**/*.csproj'
   - task: NDependTask@1
     env:
       SYSTEM_ACCESSTOKEN: $(system.accesstoken)
