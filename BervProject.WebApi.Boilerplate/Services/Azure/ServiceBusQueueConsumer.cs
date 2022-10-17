@@ -1,8 +1,6 @@
-﻿using BervProject.WebApi.Boilerplate.ConfigModel;
-using Microsoft.Azure.ServiceBus;
+﻿using Azure.Messaging.ServiceBus;
+using BervProject.WebApi.Boilerplate.ConfigModel;
 using Microsoft.Extensions.Logging;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Services.Azure
@@ -11,54 +9,59 @@ namespace BervProject.WebApi.Boilerplate.Services.Azure
     {
         private readonly ILogger<ServiceBusQueueConsumer> _logger;
         private readonly string _queueName;
-        private readonly QueueClient _queueClient;
+        private readonly ServiceBusProcessor _serviceBusProcessor;
         private readonly IProcessData _processData;
         public ServiceBusQueueConsumer(ILogger<ServiceBusQueueConsumer> logger,
             IProcessData processData,
-            AzureConfiguration azureConfiguration)
+            AzureConfiguration azureConfiguration,
+            ServiceBusClient serviceBusClient)
         {
             _logger = logger;
             _processData = processData;
             _queueName = azureConfiguration.ServiceBus.QueueName;
-            var connectionString = azureConfiguration.ServiceBus.ConnectionString;
-            _queueClient = new QueueClient(connectionString, _queueName);
-        }
+            var options = new ServiceBusProcessorOptions
+            {
+                // By default or when AutoCompleteMessages is set to true, the processor will complete the message after executing the message handler
+                // Set AutoCompleteMessages to false to [settle messages](https://docs.microsoft.com/en-us/azure/service-bus-messaging/message-transfers-locks-settlement#peeklock) on your own.
+                // In both cases, if the message handler throws an exception without settling the message, the processor will abandon the message.
+                AutoCompleteMessages = false,
 
-        public async Task CloseQueueAsync()
-        {
-            await _queueClient.CloseAsync();
+                // I can also allow for multi-threading
+                MaxConcurrentCalls = 2
+            };
+            _serviceBusProcessor = serviceBusClient.CreateProcessor(_queueName, options);
         }
 
         public void RegisterOnMessageHandlerAndReceiveMessages()
         {
-            var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
-            {
-                MaxConcurrentCalls = 1,
-                AutoComplete = false
-            };
-
             _logger.LogDebug($"Register queue for {_queueName}");
-            _queueClient.RegisterMessageHandler(ProcessMessagesAsync, messageHandlerOptions);
+            _serviceBusProcessor.ProcessMessageAsync += MessageHandler;
+            _serviceBusProcessor.ProcessErrorAsync += ErrorHandler;
             _logger.LogDebug($"Registered queue for {_queueName}");
         }
 
-        private async Task ProcessMessagesAsync(Message message, CancellationToken token)
+        private async Task MessageHandler(ProcessMessageEventArgs args)
         {
-            var myPayload = Encoding.UTF8.GetString(message.Body);
+            var myPayload = args.Message.Body.ToString();
             _processData.Process(myPayload);
-            await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
+            await args.CompleteMessageAsync(args.Message);
         }
 
-        private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
+        private Task ErrorHandler(ProcessErrorEventArgs args)
         {
-            _logger.LogError(exceptionReceivedEventArgs.Exception, "Message handler encountered an exception");
-            var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
+            _logger.LogError(args.Exception, "Message handler encountered an exception");
 
-            _logger.LogDebug($"- Endpoint: {context.Endpoint}");
-            _logger.LogDebug($"- Entity Path: {context.EntityPath}");
-            _logger.LogDebug($"- Executing Action: {context.Action}");
+            _logger.LogDebug($"- Error Source: {args.ErrorSource}");
+            _logger.LogDebug($"- Entity Path: {args.EntityPath}");
+            _logger.LogDebug($"- Identifier: {args.Identifier}");
+            _logger.LogDebug($"- FullyQualifiedNamespace: {args.FullyQualifiedNamespace}");
 
             return Task.CompletedTask;
+        }
+
+        public async Task CloseQueueAsync()
+        {
+            await _serviceBusProcessor.CloseAsync();
         }
     }
 }

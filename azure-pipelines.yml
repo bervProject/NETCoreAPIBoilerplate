@@ -7,15 +7,28 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-20.04'
+  vmImage: 'ubuntu-22.04'
+
+resources:
+  containers:
+  - container: postgres
+    image: postgres:13-alpine
+    env:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testdb
+    ports:
+      - 5432:5432
 
 variables:
   buildConfiguration: 'Release'
   imageName: 'berviantoleo/net-core-boilerplate'
-  dotnetSdkVersion: '6.0.x'
+  dotnetSdkVersion: '7.0.x'
+  postgresConnectionString: 'Host=localhost;Database=testdb;Username=postgres;Password=postgres'
 
 jobs:
 - job: "BuildTest"
+  services:
+    postgres: postgres
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -40,6 +53,8 @@ jobs:
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
       projects: '**/*.Test.csproj'
+    env:
+      ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage report'
     inputs:
@@ -94,7 +109,10 @@ jobs:
       command: 'test'
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
-      projects: '**/*.Test.csproj'
+      projects: |
+        'BervProject.WebApi.Test/BervProject.WebApi.Test.csproj'
+    env:
+      ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
   - task: NDependTask@1
     env:
       SYSTEM_ACCESSTOKEN: $(system.accesstoken)

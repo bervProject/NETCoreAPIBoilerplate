@@ -10,24 +10,44 @@ env:
   IMAGE_NAME: netcoreboilerplate
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:13-alpine
+        ports:
+          - 5432:5432
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
-        include-prerelease: true
+        dotnet-version: '7.0.x'
+        dotnet-quality: 'preview'
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
+      env:
+        ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
       run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Report Codecov
       uses: codecov/codecov-action@v3
   build-docker-test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request'
     needs: build
     steps:
@@ -35,7 +55,7 @@ jobs:
       - name: Build Image
         run: docker build . -t $IMAGE_NAME
   build-push-docker:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.event_name == 'push'
     needs: build
     steps:
