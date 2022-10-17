@@ -84,8 +84,6 @@ jobs:
       Dockerfile: Dockerfile
 
 - job: "CodeQuality"
-  services:
-    postgres: postgres
   pool:
     vmImage: "windows-2022"
   steps:
@@ -111,7 +109,8 @@ jobs:
       command: 'test'
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
-      projects: '**/*.Test.csproj'
+      projects: |
+        'BervProject.WebApi.Test/BervProject.WebApi.Test.csproj'
     env:
       ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
   - task: NDependTask@1
