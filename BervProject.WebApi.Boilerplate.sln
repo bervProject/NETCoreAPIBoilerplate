@@ -7,6 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BervProject.WebApi.Boilerpl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BervProject.WebApi.Test", "BervProject.WebApi.Test\BervProject.WebApi.Test.csproj", "{CE1B1BF2-9EF2-4C07-902F-817D81EFD22E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB53F077-669D-465F-A871-642F25CC3194}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		.github\workflows\build-and-dockerize.yml = .github\workflows\build-and-dockerize.yml
+		.github\dependabot.yml = .github\dependabot.yml
+		Dockerfile = Dockerfile
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

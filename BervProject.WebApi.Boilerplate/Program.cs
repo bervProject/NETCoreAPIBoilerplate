@@ -1,17 +1,13 @@
-using Amazon.DynamoDBv2;
-using Amazon.S3;
-using Amazon.SimpleEmail;
 using Autofac.Extensions.DependencyInjection;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
+using BervProject.WebApi.Boilerplate.Extenstions;
 using BervProject.WebApi.Boilerplate.Services;
-using BervProject.WebApi.Boilerplate.Services.AWS;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,27 +33,10 @@ var azureConfig = builder.Configuration.GetSection("Azure").Get<AzureConfigurati
 builder.Services.AddSingleton(azureConfig);
 
 // aws services
-builder.Services.AddAWSService<IAmazonS3>();
-builder.Services.AddAWSService<IAmazonDynamoDB>();
-builder.Services.AddAWSService<IAmazonSimpleEmailService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IDynamoDbServices, DynamoDbServices>();
-builder.Services.AddScoped<IAWSS3Service, AWSS3Service>();
+builder.Services.SetupAWS();
 
 // azure services
-builder.Services.AddAzureClients(builder =>
-{
-    builder.AddBlobServiceClient(azureConfig.Storage.Blob.ConnectionString);
-    builder.AddQueueServiceClient(azureConfig.Storage.Queue.ConnectionString);
-});
-builder.Services.AddScoped<IAzureQueueServices, AzureQueueServices>();
-builder.Services.AddScoped<ITopicServices, TopicServices>();
-builder.Services.AddScoped<IAzureStorageQueueService, AzureStorageQueueService>();
-builder.Services.AddScoped<IBlobService, BlobService>();
-builder.Services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
-builder.Services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
-builder.Services.AddTransient<IProcessData, ProcessData>();
-builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.SetupAzure(azureConfig);
 
 // cron services
 builder.Services.AddScoped<ICronService, CronService>();

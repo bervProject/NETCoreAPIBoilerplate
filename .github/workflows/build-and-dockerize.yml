@@ -10,13 +10,13 @@ env:
   IMAGE_NAME: netcoreboilerplate
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '7.0.x'
         include-prerelease: true
     - name: Install dependencies
       run: dotnet restore
@@ -27,7 +27,7 @@ jobs:
     - name: Report Codecov
       uses: codecov/codecov-action@v3
   build-docker-test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request'
     needs: build
     steps:
@@ -35,7 +35,7 @@ jobs:
       - name: Build Image
         run: docker build . -t $IMAGE_NAME
   build-push-docker:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.event_name == 'push'
     needs: build
     steps:
