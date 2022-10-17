@@ -13,6 +13,10 @@ resources:
   containers:
   - container: postgres
     image: postgres:13-alpine
+    env:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
 
 services:
   postgres: postgres
