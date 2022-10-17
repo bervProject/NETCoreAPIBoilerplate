@@ -18,9 +18,6 @@ resources:
     ports:
       - 5432:5432
 
-services:
-  postgres: postgres
-
 variables:
   buildConfiguration: 'Release'
   imageName: 'berviantoleo/net-core-boilerplate'
@@ -29,6 +26,8 @@ variables:
 
 jobs:
 - job: "BuildTest"
+  services:
+    postgres: postgres
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -84,6 +83,8 @@ jobs:
       Dockerfile: Dockerfile
 
 - job: "CodeQuality"
+  services:
+    postgres: postgres
   pool:
     vmImage: "windows-2022"
   steps:
@@ -110,6 +111,8 @@ jobs:
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
       projects: '**/*.Test.csproj'
+    env:
+      ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
   - task: NDependTask@1
     env:
       SYSTEM_ACCESSTOKEN: $(system.accesstoken)
