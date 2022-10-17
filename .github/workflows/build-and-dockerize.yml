@@ -10,6 +10,21 @@ env:
   IMAGE_NAME: netcoreboilerplate
 jobs:
   build:
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:13-alpine
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
@@ -23,6 +38,8 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
+      env:
+        ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
       run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Report Codecov
       uses: codecov/codecov-action@v3

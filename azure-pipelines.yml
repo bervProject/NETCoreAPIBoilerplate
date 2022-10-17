@@ -9,10 +9,19 @@ trigger:
 pool:
   vmImage: 'ubuntu-22.04'
 
+resources:
+  containers:
+  - container: postgres
+    image: postgres:13-alpine
+
+services:
+  postgres: postgres
+
 variables:
   buildConfiguration: 'Release'
   imageName: 'berviantoleo/net-core-boilerplate'
   dotnetSdkVersion: '7.0.x'
+  postgresConnectionString: 'Host=localhost;Database=testdb;Username=postgres;Password=postgres'
 
 jobs:
 - job: "BuildTest"
@@ -40,6 +49,8 @@ jobs:
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
       projects: '**/*.Test.csproj'
+    env:
+      ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage report'
     inputs:

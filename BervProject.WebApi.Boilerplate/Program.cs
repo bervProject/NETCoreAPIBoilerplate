@@ -48,6 +48,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 builder.Services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BoilerplateConnectionString")));
 
+builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning();
 builder.Services.AddSwaggerGen();
@@ -104,3 +105,5 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
+
+public partial class Program { }

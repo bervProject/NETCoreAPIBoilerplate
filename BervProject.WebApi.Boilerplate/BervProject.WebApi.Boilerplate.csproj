@@ -38,4 +38,9 @@
     <Content Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="BervProject.WebApi.Integration.Test" />
+  </ItemGroup>
+
+
 </Project>
