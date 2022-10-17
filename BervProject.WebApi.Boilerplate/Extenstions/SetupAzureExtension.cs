@@ -15,6 +15,7 @@ public static class SetupAzureExtension
         {
             builder.AddBlobServiceClient(azureConfig.Storage.Blob.ConnectionString);
             builder.AddQueueServiceClient(azureConfig.Storage.Queue.ConnectionString);
+            builder.AddServiceBusClient(azureConfig.ServiceBus.ConnectionString);
         });
         services.AddScoped<IAzureQueueServices, AzureQueueServices>();
         services.AddScoped<ITopicServices, TopicServices>();
