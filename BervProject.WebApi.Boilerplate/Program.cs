@@ -84,6 +84,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapHealthChecks("/healthz");
+
 app.UseSwagger(c =>
 {
     c.RouteTemplate = "api/docs/{documentName}/swagger.json";
