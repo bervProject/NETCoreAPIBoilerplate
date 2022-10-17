@@ -15,6 +15,7 @@ resources:
     image: postgres:13-alpine
     env:
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testdb
     ports:
       - 5432:5432
 
