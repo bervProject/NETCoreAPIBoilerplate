@@ -16,7 +16,7 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Initialize CodeQL
@@ -26,8 +26,8 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
-        include-prerelease: true
+        dotnet-version: '7.0.x'
+        dotnet-quality: 'preview'
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
     - name: Perform CodeQL Analysis
