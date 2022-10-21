@@ -1,16 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extras.Moq;
 using Azure.Messaging.ServiceBus;
-using Azure.Storage.Queues;
-using Azure.Storage.Queues.Models;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
