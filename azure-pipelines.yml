@@ -48,11 +48,11 @@ jobs:
       command: 'build'
       arguments: '--no-restore --configuration $(buildConfiguration)'
       projects: '**/*.csproj'
-  - displayName: 'Migrate DB'
-    script: |
+  - script: |
        dotnet tool install --global dotnet-ef
        dotnet tool restore
        dotnet ef database update --project BervProject.WebApi.Boilerplate
+    displayName: 'Migrate DB'
     env:
       ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
   - task: DotNetCoreCLI@2
