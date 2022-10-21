@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 
 namespace BervProject.WebApi.Integration.Test
 {
-    public class WeatherForecastController
+    public class WeatherForecastControllerTest
     {
         [Fact]
         public async Task SuccessCheck()

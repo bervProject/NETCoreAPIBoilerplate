@@ -8,6 +8,8 @@ on:
     branches: [ main ]
 env:
   IMAGE_NAME: netcoreboilerplate
+  ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
+
 jobs:
   build:
     # Service containers to run with `container-job`
@@ -40,9 +42,12 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    - name: Migrate DB
+      run: |
+        dotnet tool install --global dotnet-ef
+        dotnet tool restore
+        dotnet ef database update --project BervProject.WebApi.Boilerplate
     - name: Test
-      env:
-        ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
       run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Report Codecov
       uses: codecov/codecov-action@v3
