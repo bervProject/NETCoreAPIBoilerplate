@@ -51,7 +51,7 @@ jobs:
   - script: |
        dotnet tool install --global dotnet-ef
        dotnet tool restore
-       dotnet ef database update --project BervProject.WebApi.Boilerplate
+       dotnet ef database update --startup-project BervProject.WebApi.Boilerplate --project BervProject.WebApi.Boilerplate
     displayName: 'Migrate DB'
     env:
       ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
