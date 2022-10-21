@@ -61,7 +61,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         public IActionResult GetDb([FromServices] BoilerplateDbContext dbContext)
         {
             var booksQuery = dbContext.Books.AsQueryable();
-            var books = booksQuery.Where(x => x.Name.Equals("Halleluya")).Include(x => x.Publisher).ToList();
+            var books = booksQuery.Where(x => x.Name.Contains("Halleluya")).Include(x => x.Publisher).ToList();
             if (books.Count == 0)
             {
                 var listBooks = new List<Book>()
