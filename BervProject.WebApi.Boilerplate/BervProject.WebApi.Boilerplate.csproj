@@ -28,7 +28,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.0-rc.2.22476.2" />
-    <PackageReference Include="NLog" Version="5.0.4" />
+    <PackageReference Include="NLog" Version="5.0.5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.1.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0-rc.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
