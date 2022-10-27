@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BervProject.WebApi.Integration.Test.Fixtures;
 using Hangfire;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,7 +8,6 @@ namespace BervProject.WebApi.Integration.Test
     public class CronControllerTest : IDisposable
     {
         private readonly WebApplicationFactory<Program> _applicationFactory;
-        private readonly List<string> _registeredCron = new List<string>();
         private readonly List<string> _registeredRecurring = new List<string>();
         public CronControllerTest(WebAppFixture webAppFixtures)
         {
@@ -18,20 +16,7 @@ namespace BervProject.WebApi.Integration.Test
 
         public void Dispose()
         {
-            RemoveBackgroundJob();
             RemoveRecurringJob();
-        }
-
-        private void RemoveBackgroundJob() 
-        {
-            var cronClient = (IBackgroundJobClient?)this._applicationFactory.Services.GetService(typeof(IBackgroundJobClient));
-            if (cronClient != null)
-            {
-                foreach (var cronId in _registeredCron)
-                {
-                    cronClient.Delete(cronId);
-                }
-            }
         }
 
         private void RemoveRecurringJob()
@@ -54,8 +39,12 @@ namespace BervProject.WebApi.Integration.Test
             Assert.True(response.IsSuccessStatusCode);
             var stringResponse = await response.Content.ReadAsStringAsync();
             Assert.NotEmpty(stringResponse);
-            Console.WriteLine(stringResponse);
-            _registeredCron.Add(stringResponse);
+            var cronClient = (IBackgroundJobClient?)this._applicationFactory.Services.GetService(typeof(IBackgroundJobClient));
+            if (cronClient != null)
+            {
+                var deleted = cronClient.Delete(stringResponse);
+                Assert.True(deleted);
+            }
         }
 
         [Fact]
@@ -66,7 +55,6 @@ namespace BervProject.WebApi.Integration.Test
             Assert.True(response.IsSuccessStatusCode);
             var stringResponse = await response.Content.ReadAsStringAsync();
             Assert.NotEmpty(stringResponse);
-            Console.WriteLine(stringResponse);
             _registeredRecurring.Add(stringResponse);
         }
     }
