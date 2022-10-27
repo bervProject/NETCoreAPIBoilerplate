@@ -24,6 +24,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BervProject.WebApi.Boilerplate\BervProject.WebApi.Boilerplate.csproj" />
+    <Content Include="Docs\test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
