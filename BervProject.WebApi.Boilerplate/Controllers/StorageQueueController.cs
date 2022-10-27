@@ -28,7 +28,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             return response;
         }
 
-        [HttpPost("receiveMessage")]
+        [HttpGet("receiveMessage")]
         public ActionResult<MessageSenderResponse> GetLatestMessage()
         {
             var response = new MessageSenderResponse();
