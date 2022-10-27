@@ -29,7 +29,7 @@ namespace BervProject.WebApi.Integration.Test
             Assert.True(response.IsSuccessStatusCode);
             var data = await response.Content.ReadFromJsonAsync<List<Dictionary<string, string>>>();
             Assert.NotNull(data);
-            Assert.Equal(1, data.Count);
+            Assert.Single(data);
         }
     }
 }
