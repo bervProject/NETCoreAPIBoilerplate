@@ -13,15 +13,16 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         [HttpPost("CreateCronOnce")]
         public IActionResult CreateCronOnce([FromServices] IBackgroundJobClient backgroundJobClient)
         {
-            backgroundJobClient.Enqueue<ICronService>((x) => x.HelloWorld());
-            return Ok();
+            var jobId = backgroundJobClient.Enqueue<ICronService>((x) => x.HelloWorld());
+            return Ok(jobId);
         }
 
         [HttpPost("CreateRecurance")]
         public IActionResult CreateRecurance([FromServices] IRecurringJobManager recurringJobManager)
         {
-            recurringJobManager.AddOrUpdate<ICronService>("HelloWorld", (x) => x.HelloWorld(), Cron.Hourly);
-            return Ok();
+            var jobId = "HelloWorld";
+            recurringJobManager.AddOrUpdate<ICronService>(jobId, (x) => x.HelloWorld(), Cron.Hourly);
+            return Ok(jobId);
         }
     }
 }
