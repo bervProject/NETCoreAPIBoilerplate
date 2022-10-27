@@ -30,6 +30,12 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      azurite:
+        image: mcr.microsoft.com/azure-storage/azurite
+        ports:
+          - 10000:10000
+          - 10001:10001
+          - 10002:10002
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3

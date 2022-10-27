@@ -79,17 +79,20 @@ namespace BervProject.WebApi.Test.Services.Azure
             var loggerMock = mock.Mock<ILogger<BlobService>>();
             var blobServiceClient = mock.Mock<BlobServiceClient>();
             var mockContainer = mock.Mock<BlobContainerClient>();
+            var mockBlobClient = mock.Mock<BlobClient>();
             var fileMock = mock.Mock<IFormFile>();
             var nullStream = new MemoryStream(0);
             blobServiceClient.Setup(x => x.GetBlobContainerClient("")).Returns(mockContainer.Object);
             mockContainer.Setup(x => x.Exists(default).Value).Returns(true);
             var fileName = "Dummy";
+            mockContainer.Setup(x => x.GetBlobClient(fileName)).Returns(mockBlobClient.Object);
             fileMock.SetupGet(x => x.FileName).Returns(fileName);
             fileMock.Setup(x => x.OpenReadStream()).Returns(nullStream);
             var blobService = mock.Create<BlobService>();
             blobService.UploadFile(fileMock.Object);
             fileMock.Verify(x => x.OpenReadStream(), Times.Once());
-            mockContainer.Verify(x => x.UploadBlob(fileName, nullStream, default), Times.Once());
+            mockContainer.Verify(x => x.GetBlobClient(fileName), Times.Once());
+            mockBlobClient.Verify(x => x.Upload(It.IsAny<Stream>(), true, default), Times.Once());
         }
 
         [Fact]

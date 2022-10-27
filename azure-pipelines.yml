@@ -20,6 +20,12 @@ resources:
       POSTGRES_DB: testdb
     ports:
       - 5432:5432
+  - container: azurite
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - 10000:10000
+      - 10001:10001
+      - 10002:10002
 
 variables:
   buildConfiguration: 'Release'
@@ -31,6 +37,7 @@ jobs:
 - job: "BuildTest"
   services:
     postgres: postgres
+    azurite: azurite
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
