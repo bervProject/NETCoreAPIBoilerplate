@@ -50,7 +50,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Migrate DB
       run: |
-        dotnet tool install --global dotnet-ef
+        dotnet tool install --global dotnet-ef --version 7.0.0-rc.2.22472.11
         dotnet tool restore
         dotnet ef database update --startup-project BervProject.WebApi.Boilerplate --project BervProject.WebApi.Boilerplate
     - name: Bundle Migration
