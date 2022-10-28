@@ -53,6 +53,13 @@ jobs:
         dotnet tool install --global dotnet-ef
         dotnet tool restore
         dotnet ef database update --startup-project BervProject.WebApi.Boilerplate --project BervProject.WebApi.Boilerplate
+    - name: Bundle Migration
+      run: dotnet ef migrations bundle --startup-project BervProject.WebApi.Boilerplate --project BervProject.WebApi.Boilerplate
+    - name: Archive EF Migration Bundle
+      uses: actions/upload-artifact@v3
+      with:
+        name: migration-bundle
+        path: efbundle
     - name: Test
       run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Report Codecov
