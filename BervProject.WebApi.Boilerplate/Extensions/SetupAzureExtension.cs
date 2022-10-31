@@ -1,6 +1,7 @@
 ﻿namespace BervProject.WebApi.Boilerplate.Extenstions;
 
 using BervProject.WebApi.Boilerplate.ConfigModel;
+using BervProject.WebApi.Boilerplate.Entities;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using BervProject.WebApi.Boilerplate.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,11 +17,15 @@ public static class SetupAzureExtension
             builder.AddBlobServiceClient(azureConfig.Storage.Blob.ConnectionString);
             builder.AddQueueServiceClient(azureConfig.Storage.Queue.ConnectionString);
             builder.AddServiceBusClient(azureConfig.ServiceBus.ConnectionString);
+            builder.AddTableServiceClient(azureConfig.Storage.Table.ConnectionString);
         });
         services.AddScoped<IAzureQueueServices, AzureQueueServices>();
         services.AddScoped<ITopicServices, TopicServices>();
         services.AddScoped<IAzureStorageQueueService, AzureStorageQueueService>();
         services.AddScoped<IBlobService, BlobService>();
+        // add each tables
+        services.AddScoped<IAzureTableStorageService<Note>, AzureTableStorageService<Note>>();
+        // service bus
         services.AddSingleton<IServiceBusQueueConsumer, ServiceBusQueueConsumer>();
         services.AddSingleton<IServiceBusTopicSubscription, ServiceBusTopicSubscription>();
         services.AddTransient<IProcessData, ProcessData>();

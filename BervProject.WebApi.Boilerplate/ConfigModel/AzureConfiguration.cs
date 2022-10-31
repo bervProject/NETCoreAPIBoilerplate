@@ -10,6 +10,7 @@
     {
         public StorageQueue Queue { get; set; }
         public BlobStorage Blob { get; set; }
+        public TableStorage Table { get; set; }
     }
 
     public class BlobStorage
@@ -22,6 +23,11 @@
     {
         public string ConnectionString { get; set; }
         public string QueueName { get; set; }
+    }
+
+    public class TableStorage
+    {
+        public string ConnectionString { get; set; }
     }
 
     public class AzureServiceBus
