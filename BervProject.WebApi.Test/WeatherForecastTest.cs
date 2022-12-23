@@ -28,20 +28,20 @@ namespace BervProject.WebApi.Test
             var cacheMock = mock.Create<IDistributedCache>();
             var controller = mock.Create<WeatherForecastController>();
             var result = controller.GetCache(cacheMock);
-            Assert.Null(result.Value);
+            Assert.Equal("", result.Value);
         }
 
         [Fact]
         public void GetCacheResultTest()
         {
             using var mock = AutoMock.GetLoose();
-            var expectedResult = "I know anything";
+            const string expectedResult = "I know anything";
             var expectedByte = Encoding.ASCII.GetBytes(expectedResult);
             mock.Mock<IDistributedCache>().Setup(x => x.Get(It.IsAny<string>())).Returns(expectedByte);
             var cacheMock = mock.Create<IDistributedCache>();
             var controller = mock.Create<WeatherForecastController>();
             var result = controller.GetCache(cacheMock);
-            Assert.Equal(expectedByte, result.Value);
+            Assert.Equal(expectedResult, result.Value);
         }
 
         [Fact]
