@@ -65,6 +65,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Image
         run: docker build . -t $IMAGE_NAME
+      - name: Check Scan Version
+        run: docker scan --accept-license --version
+      - name: Scan Image
+        run: docker scan $IMAGE_NAME
   build-push-docker:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
