@@ -98,11 +98,8 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "api/docs";
 });
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapHangfireDashboard();
-});
+app.MapControllers();
+app.MapHangfireDashboard();
 
 app.Run();
 
