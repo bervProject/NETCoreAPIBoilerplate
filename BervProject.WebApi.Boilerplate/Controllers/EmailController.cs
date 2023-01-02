@@ -16,6 +16,11 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             _emailService = emailService;
         }
 
+        /// <summary>
+        /// Send Email
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("send")]
         public async Task<IActionResult> SendEmail([FromBody] EmailSendRequest request)
         {

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {
@@ -29,7 +30,12 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             this.telemetryClient = telemetryClient;
         }
 
+        /// <summary>
+        /// Get Weather Forecast
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(typeof(List<WeatherForecast>), StatusCodes.Status200OK)]
         public IEnumerable<WeatherForecast> Get()
         {
             this.telemetryClient.TrackEvent("WeatherQueried");
@@ -43,8 +49,14 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             .ToArray();
         }
 
+        /// <summary>
+        /// Get Cache
+        /// </summary>
+        /// <param name="distributedCache"></param>
+        /// <returns></returns>
         [HttpGet("cache")]
-        public ActionResult<byte[]> GetCache([FromServices] IDistributedCache distributedCache)
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        public ActionResult<string> GetCache([FromServices] IDistributedCache distributedCache)
         {
             var result = distributedCache.Get("MyCache");
             if (result == null || result.Length == 0)
@@ -54,11 +66,17 @@ namespace BervProject.WebApi.Boilerplate.Controllers
                 result = distributedCache.Get("MyCache");
                 Console.WriteLine(result);
             }
-            return result;
+            return Encoding.UTF8.GetString(result ?? Array.Empty<byte>());
         }
 
+        /// <summary>
+        /// Simple DB Query
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <returns></returns>
         [HttpGet("db")]
-        public IActionResult GetDb([FromServices] BoilerplateDbContext dbContext)
+        [ProducesResponseType(typeof(List<Book>), StatusCodes.Status200OK)]
+        public ActionResult<List<Book>> GetDb([FromServices] BoilerplateDbContext dbContext)
         {
             var booksQuery = dbContext.Books.AsQueryable();
             var books = booksQuery.Where(x => x.Name.Contains("Halleluya")).Include(x => x.Publisher).ToList();
@@ -66,7 +84,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             {
                 var listBooks = new List<Book>()
                 {
-                    new Book()
+                    new()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Halleluya",
@@ -76,7 +94,7 @@ namespace BervProject.WebApi.Boilerplate.Controllers
                             Name = "Heaven Publisher"
                         }
                     },
-                    new Book()
+                    new()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Halleluya 2",
@@ -91,13 +109,17 @@ namespace BervProject.WebApi.Boilerplate.Controllers
                 dbContext.SaveChanges();
                 return Ok(listBooks);
             }
-            else
-            {
-                return Ok(books);
-            }
+
+            return Ok(books);
         }
 
+        /// <summary>
+        /// Exception always throw
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [HttpGet("triggerException")]
+        [ProducesResponseType(typeof(Exception), StatusCodes.Status500InternalServerError)]
         public IActionResult TriggerException()
         {
             throw new Exception("Unhandled Exception");

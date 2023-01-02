@@ -1,6 +1,7 @@
 ﻿using BervProject.WebApi.Boilerplate.Models;
 using BervProject.WebApi.Boilerplate.Models.Response;
 using BervProject.WebApi.Boilerplate.Services.Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
@@ -16,7 +17,13 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             _azureStorageQueueService = azureStorageQueueService;
         }
 
+        /// <summary>
+        /// Send Queue Message
+        /// </summary>
+        /// <param name="messageData"></param>
+        /// <returns></returns>
         [HttpPost("sendMessage")]
+        [ProducesResponseType(typeof(MessageSenderResponse), StatusCodes.Status200OK)]
         public ActionResult<MessageSenderResponse> SendMessage([FromBody] MessageData messageData)
         {
             var response = new MessageSenderResponse()
@@ -28,7 +35,12 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             return response;
         }
 
+        /// <summary>
+        /// Getting Latest Message
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("receiveMessage")]
+        [ProducesResponseType(typeof(MessageSenderResponse), StatusCodes.Status200OK)]
         public ActionResult<MessageSenderResponse> GetLatestMessage()
         {
             var response = new MessageSenderResponse();

@@ -17,6 +17,10 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             _dynamoService = dynamoService;
         }
 
+        /// <summary>
+        /// Create Dynamo DB Object
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create()
         {

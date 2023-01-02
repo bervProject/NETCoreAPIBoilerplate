@@ -3,6 +3,7 @@ using BervProject.WebApi.Boilerplate.Models.Response;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {
@@ -12,7 +13,14 @@ namespace BervProject.WebApi.Boilerplate.Controllers
     public class ServiceBusSenderController : ControllerBase
     {
 
+        /// <summary>
+        /// Send Service Bus Message
+        /// </summary>
+        /// <param name="queueServices"></param>
+        /// <param name="messageData"></param>
+        /// <returns></returns>
         [HttpPost("sendMessage")]
+        [ProducesResponseType(typeof(MessageSenderResponse), StatusCodes.Status200OK)]
         public async Task<ActionResult<MessageSenderResponse>> SendMessage([FromServices] IAzureQueueServices queueServices, [FromBody] MessageData messageData)
         {
             var response = new MessageSenderResponse()
@@ -24,7 +32,14 @@ namespace BervProject.WebApi.Boilerplate.Controllers
             return response;
         }
 
+        /// <summary>
+        /// Send Topic Message
+        /// </summary>
+        /// <param name="topicServices"></param>
+        /// <param name="messageData"></param>
+        /// <returns></returns>
         [HttpPost("sendTopic")]
+        [ProducesResponseType(typeof(MessageSenderResponse), StatusCodes.Status200OK)]
         public async Task<ActionResult<MessageSenderResponse>> SendTopic([FromServices] ITopicServices topicServices, [FromBody] MessageData messageData)
         {
             var response = new MessageSenderResponse()

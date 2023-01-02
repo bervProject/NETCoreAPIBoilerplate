@@ -1,4 +1,6 @@
-using Amazon.S3.Model;
+using System;
+using System.IO;
+using System.Reflection;
 using Autofac.Extensions.DependencyInjection;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
@@ -51,7 +53,11 @@ builder.Services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql
 builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 var app = builder.Build();
 
