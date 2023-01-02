@@ -36,16 +36,8 @@ namespace BervProject.WebApi.Boilerplate.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         public IActionResult CreateBlobContainer()
         {
-            try
-            {
-                _blobService.CreateStorageContainer();
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error when creating blob container");
-                return Ok(false);
-            }
+            _blobService.CreateStorageContainer();
+            return Ok(true);
         }
 
         /// <summary>
