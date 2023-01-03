@@ -18,6 +18,7 @@ jobs:
         name: Lint Dockerfile
         with:
           dockerfile: Dockerfile
+          failure-threshold: error
       - name: Build Image
         run: docker build . -t $IMAGE_NAME
       - name: Run Trivy vulnerability scanner
