@@ -16,10 +16,10 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.21" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.22" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.101.51" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.100.51" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.100.52" />
     <PackageReference Include="Azure.Data.Tables" Version="12.7.1" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.11.1" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
@@ -36,7 +36,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.2" />
     <PackageReference Include="NLog" Version="5.1.1" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
