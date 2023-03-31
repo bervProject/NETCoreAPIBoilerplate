@@ -25,7 +25,7 @@
     <PackageReference Include="Azure.Storage.Blobs" Version="12.15.1" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.13.1" />
     <PackageReference Include="Hangfire" Version="1.8.0-rc2" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.0-rc2" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.0-rc3" />
     <PackageReference Include="HangFire.Autofac" Version="2.3.1" />
     <PackageReference Include="Hangfire.PostgreSql" Version="1.19.12" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
