@@ -8,6 +8,10 @@ env:
   ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-latest, macos-latest ]
+
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
@@ -32,7 +36,7 @@ jobs:
           - 10000:10000
           - 10001:10001
           - 10002:10002
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET Core
