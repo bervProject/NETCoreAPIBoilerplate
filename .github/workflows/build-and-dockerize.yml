@@ -46,7 +46,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Migrate DB
       run: |
-        dotnet tool install --global dotnet-ef
+        dotnet tool install --global dotnet-ef --version 8.0.0-preview.4.23259.3 
         dotnet tool restore
         dotnet ef database update --startup-project BervProject.WebApi.Boilerplate --project BervProject.WebApi.Boilerplate
     - name: Test
