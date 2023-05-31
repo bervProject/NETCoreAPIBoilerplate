@@ -2,10 +2,6 @@ pull_request_rules:
   - name: automatic merge for Dependabot pull requests
     conditions:
       - author=dependabot[bot]
-      - "check-success=bervProject.NETCoreAPIBoilerplate (BuildTest)"
-      - "check-success=Code scanning results / CodeQL"
-      - "check-success=Dockerize / build-docker-test (pull_request)"
-      - "check-success=Build .NET / build (pull_request)"
     actions:
       merge:
         method: merge
