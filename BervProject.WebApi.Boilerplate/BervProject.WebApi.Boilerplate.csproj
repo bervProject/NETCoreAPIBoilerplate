@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="7.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.105.3" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.105.5" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.107.3" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.100.150" />
