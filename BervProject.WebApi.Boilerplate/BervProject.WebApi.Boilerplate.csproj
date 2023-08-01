@@ -27,7 +27,7 @@
     <PackageReference Include="Hangfire" Version="1.8.4" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.4" />
     <PackageReference Include="HangFire.Autofac" Version="2.4.1" />
-    <PackageReference Include="Hangfire.PostgreSql" Version="1.19.13" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.20.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0-beta3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
