@@ -19,7 +19,7 @@
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.200.23" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.202.2" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.200.21" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.200.22" />
     <PackageReference Include="Azure.Data.Tables" Version="12.8.1" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.16.1" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.17.0" />
