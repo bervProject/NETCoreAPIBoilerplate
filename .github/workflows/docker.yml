@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: hadolint/hadolint-action@v3.1.0
         name: Lint Dockerfile
         with:
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
