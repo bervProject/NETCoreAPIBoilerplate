@@ -2,6 +2,10 @@
 
 Net Core Web API Boilerplate for My Project
 
+## .NET Version
+
+8.0
+
 ## Build Status
 
 | Github Action | Azure Pipelines | Codecov |
