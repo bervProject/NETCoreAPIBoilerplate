@@ -24,7 +24,7 @@
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.17.3" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.17.1" />
-    <PackageReference Include="Hangfire" Version="1.8.10" />
+    <PackageReference Include="Hangfire" Version="1.8.11" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.11" />
     <PackageReference Include="HangFire.Autofac" Version="2.6.0" />
     <PackageReference Include="Hangfire.PostgreSql" Version="1.20.6" />
