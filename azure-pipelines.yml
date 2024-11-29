@@ -9,12 +9,12 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-22.04'
+  vmImage: 'ubuntu-24.04'
 
 resources:
   containers:
   - container: postgres
-    image: postgres:15-alpine
+    image: postgres:17-alpine
     env:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: testdb
@@ -30,7 +30,7 @@ resources:
 variables:
   buildConfiguration: 'Release'
   imageName: 'berviantoleo/net-core-boilerplate'
-  dotnetSdkVersion: '8.0.x'
+  dotnetSdkVersion: '9.0.x'
   postgresConnectionString: 'Host=localhost;Database=testdb;Username=postgres;Password=postgres'
 
 jobs:

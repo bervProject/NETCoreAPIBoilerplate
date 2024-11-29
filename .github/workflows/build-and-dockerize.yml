@@ -13,7 +13,7 @@ jobs:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres:15-alpine
+        image: postgres:17-alpine
         ports:
           - 5432:5432
         # Provide the password for postgres
@@ -32,13 +32,13 @@ jobs:
           - 10000:10000
           - 10001:10001
           - 10002:10002
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
         dotnet-quality: 'preview'
     - name: Install dependencies
       run: dotnet restore
