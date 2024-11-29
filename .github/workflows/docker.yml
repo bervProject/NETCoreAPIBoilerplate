@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: netcoreboilerplate
 jobs:
   build-docker-test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
   build-push-docker:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event_name == 'push'
     steps:
     - uses: actions/checkout@v4
