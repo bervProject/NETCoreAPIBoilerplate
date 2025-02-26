@@ -18,7 +18,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.405.28" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.400" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.415.5" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.415.6" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.402.43" />
     <PackageReference Include="Azure.Data.Tables" Version="12.10.0" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.4" />
