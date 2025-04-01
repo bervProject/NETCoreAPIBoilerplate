@@ -40,7 +40,7 @@
     <PackageReference Include="NLog" Version="5.4.0" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.4.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
