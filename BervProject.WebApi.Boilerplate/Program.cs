@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,17 +37,20 @@ builder.Services.AddSingleton(azureConfig);
 builder.Services.SetupAWS();
 
 // azure services
-builder.Services.SetupAzure(azureConfig);
+builder.Services.SetupAzure(builder.Configuration);
 
 // cron services
 builder.Services.AddScoped<ICronService, CronService>();
-builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("BoilerplateConnectionString")));
+builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(opt =>
+{
+    opt.UseNpgsqlConnection(builder.Configuration.GetConnectionString("BoilerplateConnectionString"));
+}));
 builder.Services.AddHangfireServer();
 
 // essential services
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration["Redis:ConnectionString"];
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 builder.Services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BoilerplateConnectionString")));
 
@@ -57,6 +61,12 @@ builder.Services.AddSwaggerGen(options =>
 {
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Boilerplate API",
+        Description = "An ASP.NET Core Web API"
+    });
 });
 
 var app = builder.Build();
