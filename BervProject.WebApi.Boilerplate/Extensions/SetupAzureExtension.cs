@@ -15,10 +15,10 @@ public static class SetupAzureExtension
     {
         services.AddAzureClients(builder =>
         {
-            builder.AddBlobServiceClient(config.GetConnectionString("Azure__Storage__Blob"));
-            builder.AddQueueServiceClient(config.GetConnectionString("Azure__Storage__Queue"));
-            builder.AddServiceBusClient(config.GetConnectionString("Azure__ServiceBus"));
-            builder.AddTableServiceClient(config.GetConnectionString("Azure__Storage__Table"));
+            builder.AddBlobServiceClient(config.GetConnectionString("AzureStorageBlob"));
+            builder.AddQueueServiceClient(config.GetConnectionString("AzureStorageQueue"));
+            builder.AddServiceBusClient(config.GetConnectionString("AzureServiceBus"));
+            builder.AddTableServiceClient(config.GetConnectionString("AzureStorageTable"));
         });
         services.AddScoped<IAzureQueueServices, AzureQueueServices>();
         services.AddScoped<ITopicServices, TopicServices>();
