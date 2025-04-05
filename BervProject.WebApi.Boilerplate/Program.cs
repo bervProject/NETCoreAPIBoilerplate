@@ -72,7 +72,7 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // register Consumer
-var connectionString = azureConfig.ServiceBus.ConnectionString;
+var connectionString = builder.Configuration.GetConnectionString("AzureServiceBus");
 var queueName = azureConfig.ServiceBus.QueueName;
 var topicName = azureConfig.ServiceBus.TopicName;
 if (!string.IsNullOrWhiteSpace(queueName) && !string.IsNullOrWhiteSpace(connectionString))

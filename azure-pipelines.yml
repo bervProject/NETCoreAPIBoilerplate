@@ -71,7 +71,7 @@ jobs:
       projects: '**/*.Test.csproj'
     env:
       ConnectionStrings__BoilerplateConnectionString: $(postgresConnectionString)
-  - task: PublishCodeCoverageResults@1
+  - task: PublishCodeCoverageResults@2
     displayName: 'Publish code coverage report'
     inputs:
       codeCoverageTool: 'cobertura'
