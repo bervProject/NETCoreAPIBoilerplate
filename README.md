@@ -8,9 +8,9 @@ Net Core Web API Boilerplate for My Project
 
 ## Build Status
 
-| Github Action | Azure Pipelines | Codecov |
-|:-------------:|:---------------:|:-------:|
-| ![Build&Dockerize](https://github.com/bervProject/NETCoreAPIBoilerplate/workflows/Build&Dockerize/badge.svg) | [![Build Status](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_apis/build/status/bervProject.NETCoreAPIBoilerplate?branchName=main)](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_build/latest?definitionId=6&branchName=main) | [![codecov](https://codecov.io/gh/bervProject/NETCoreAPIBoilerplate/branch/main/graph/badge.svg?token=4OP6CFN2PX)](https://codecov.io/gh/bervProject/NETCoreAPIBoilerplate) |
+| Github Action (Build) | Github Action (Docker) | Azure Pipelines | Codecov |
+|:---:|:---:|:---:|:---:|
+| [![Build .NET](https://github.com/bervProject/NETCoreAPIBoilerplate/actions/workflows/build-and-dockerize.yml/badge.svg)](https://github.com/bervProject/NETCoreAPIBoilerplate/actions/workflows/build-and-dockerize.yml) | [![Dockerize](https://github.com/bervProject/NETCoreAPIBoilerplate/actions/workflows/docker.yml/badge.svg)](https://github.com/bervProject/NETCoreAPIBoilerplate/actions/workflows/docker.yml)   |  [![Build Status](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_apis/build/status/bervProject.NETCoreAPIBoilerplate?branchName=main)](https://dev.azure.com/berviantoleo/NETCoreWebAPIBoilerplate/_build/latest?definitionId=6&branchName=main) | [![codecov](https://codecov.io/gh/bervProject/NETCoreAPIBoilerplate/branch/main/graph/badge.svg?token=4OP6CFN2PX)](https://codecov.io/gh/bervProject/NETCoreAPIBoilerplate) |
 
 ## LICENSE
 

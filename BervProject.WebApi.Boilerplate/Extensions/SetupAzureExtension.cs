@@ -1,23 +1,24 @@
-﻿namespace BervProject.WebApi.Boilerplate.Extenstions;
+﻿using Microsoft.Extensions.Configuration;
 
-using BervProject.WebApi.Boilerplate.ConfigModel;
-using BervProject.WebApi.Boilerplate.Entities;
+namespace BervProject.WebApi.Boilerplate.Extenstions;
+
+using Entities;
 using BervProject.WebApi.Boilerplate.Services.Azure;
-using BervProject.WebApi.Boilerplate.Services;
+using Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
 
 
 public static class SetupAzureExtension
 {
-    public static void SetupAzure(this IServiceCollection services, AzureConfiguration azureConfig)
+    public static void SetupAzure(this IServiceCollection services, ConfigurationManager config)
     {
         services.AddAzureClients(builder =>
         {
-            builder.AddBlobServiceClient(azureConfig.Storage.Blob.ConnectionString);
-            builder.AddQueueServiceClient(azureConfig.Storage.Queue.ConnectionString);
-            builder.AddServiceBusClient(azureConfig.ServiceBus.ConnectionString);
-            builder.AddTableServiceClient(azureConfig.Storage.Table.ConnectionString);
+            builder.AddBlobServiceClient(config.GetConnectionString("AzureStorageBlob"));
+            builder.AddQueueServiceClient(config.GetConnectionString("AzureStorageQueue"));
+            builder.AddServiceBusClient(config.GetConnectionString("AzureServiceBus"));
+            builder.AddTableServiceClient(config.GetConnectionString("AzureStorageTable"));
         });
         services.AddScoped<IAzureQueueServices, AzureQueueServices>();
         services.AddScoped<ITopicServices, TopicServices>();
