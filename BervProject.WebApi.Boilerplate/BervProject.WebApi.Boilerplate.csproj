@@ -46,6 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BervProject.WebApi.Boilerplate.ServiceDefaults\BervProject.WebApi.Boilerplate.ServiceDefaults.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

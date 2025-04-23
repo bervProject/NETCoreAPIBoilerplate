@@ -19,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
@@ -54,7 +55,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 builder.Services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BoilerplateConnectionString")));
 
-builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning();
 builder.Services.AddSwaggerGen(options =>
@@ -101,8 +101,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapHealthChecks("/healthz");
-
 app.UseSwagger(c =>
 {
     c.RouteTemplate = "api/docs/{documentName}/swagger.json";
@@ -113,6 +111,8 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/api/docs/v1/swagger.json", "My API V1");
     c.RoutePrefix = "api/docs";
 });
+
+app.MapDefaultEndpoints();
 
 app.MapControllers();
 app.MapHangfireDashboard();

@@ -15,7 +15,7 @@ namespace BervProject.WebApi.Integration.Test
         public async Task SuccessCheck()
         {
             var client = _applicationFactory.CreateClient();
-            var response = await client.GetAsync("/healthz");
+            var response = await client.GetAsync("/health");
             Assert.True(response.IsSuccessStatusCode);
             var stringResponse = await response.Content.ReadAsStringAsync();
             Assert.Equal("Healthy", stringResponse);
