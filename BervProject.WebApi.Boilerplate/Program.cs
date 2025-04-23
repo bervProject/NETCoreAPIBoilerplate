@@ -112,6 +112,8 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "api/docs";
 });
 
+app.MapDefaultEndpoints();
+
 app.MapControllers();
 app.MapHangfireDashboard();
 
