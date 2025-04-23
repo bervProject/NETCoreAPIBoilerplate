@@ -19,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
