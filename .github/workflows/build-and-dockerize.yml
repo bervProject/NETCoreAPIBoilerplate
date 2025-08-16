@@ -34,7 +34,7 @@ jobs:
           - 10002:10002
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
       with:
