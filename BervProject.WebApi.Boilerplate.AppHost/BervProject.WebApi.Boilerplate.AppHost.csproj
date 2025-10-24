@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="KubernetesClient" Version="17.0.14" />
+    <PackageReference Include="KubernetesClient" Version="18.0.5" />
     <ProjectReference Include="..\BervProject.WebApi.Boilerplate\BervProject.WebApi.Boilerplate.csproj" />
     <ProjectReference Include="..\BervProject.WebApi.Boilerplate.MigrationService\BervProject.WebApi.Boilerplate.MigrationService.csproj" />
   </ItemGroup>
