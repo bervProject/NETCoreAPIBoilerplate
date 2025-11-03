@@ -6,7 +6,6 @@ using Amazon.SimpleEmail;
 using Services.AWS;
 using Microsoft.Extensions.DependencyInjection;
 
-
 /// <summary>
 /// AWS Extension for setup all AWS Services
 /// </summary>
