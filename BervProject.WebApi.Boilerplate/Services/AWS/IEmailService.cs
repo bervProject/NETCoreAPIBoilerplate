@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿namespace BervProject.WebApi.Boilerplate.Services.AWS;
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BervProject.WebApi.Boilerplate.Services.AWS
+/// <summary>
+/// Email Service Interface
+/// </summary>
+public interface IEmailService
 {
-    public interface IEmailService
-    {
-        Task SendEmail(List<string> receiver);
-    }
+    /// <summary>
+    /// Send Email
+    /// </summary>
+    /// <param name="receiver"></param>
+    /// <returns></returns>
+    Task SendEmail(List<string> receiver);
 }

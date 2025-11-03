@@ -4,7 +4,7 @@ Net Core Web API Boilerplate for My Project
 
 ## .NET Version
 
-8.0
+> 9.0
 
 ## Build Status
 

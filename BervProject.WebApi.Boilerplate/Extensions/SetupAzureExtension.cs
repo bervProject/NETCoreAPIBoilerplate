@@ -1,16 +1,22 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace BervProject.WebApi.Boilerplate.Extenstions;
+﻿namespace BervProject.WebApi.Boilerplate.Extensions;
 
 using Entities;
-using BervProject.WebApi.Boilerplate.Services.Azure;
 using Services;
-using Microsoft.Extensions.DependencyInjection;
+using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-
+/// <summary>
+/// Extension for setup Azure services
+/// </summary>
 public static class SetupAzureExtension
 {
+    /// <summary>
+    /// Setup Azure
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="config"></param>
     public static void SetupAzure(this IServiceCollection services, ConfigurationManager config)
     {
         services.AddAzureClients(builder =>

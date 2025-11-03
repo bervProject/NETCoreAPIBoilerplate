@@ -1,24 +1,23 @@
-using BervProject.WebApi.Integration.Test.Fixtures;
+namespace BervProject.WebApi.Integration.Test;
+
+using Fixtures;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace BervProject.WebApi.Integration.Test
+[Collection("Webapp")]
+public class HealthCheckTest
 {
-    [Collection("Webapp")]
-    public class HealthCheckTest
+    private readonly WebApplicationFactory<Program> _applicationFactory;
+    public HealthCheckTest(WebAppFixture webAppFixtures)
     {
-        private readonly WebApplicationFactory<Program> _applicationFactory;
-        public HealthCheckTest(WebAppFixture webAppFixtures)
-        {
-            this._applicationFactory = webAppFixtures.WebApp;
-        }
-        [Fact]
-        public async Task SuccessCheck()
-        {
-            var client = _applicationFactory.CreateClient();
-            var response = await client.GetAsync("/health");
-            Assert.True(response.IsSuccessStatusCode);
-            var stringResponse = await response.Content.ReadAsStringAsync();
-            Assert.Equal("Healthy", stringResponse);
-        }
+        _applicationFactory = webAppFixtures.WebApp;
+    }
+    [Fact]
+    public async Task SuccessCheck()
+    {
+        var client = _applicationFactory.CreateClient();
+        var response = await client.GetAsync("/health");
+        Assert.True(response.IsSuccessStatusCode);
+        var stringResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("Healthy", stringResponse);
     }
 }

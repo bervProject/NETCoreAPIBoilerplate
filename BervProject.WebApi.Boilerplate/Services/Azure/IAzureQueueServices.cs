@@ -1,9 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿namespace BervProject.WebApi.Boilerplate.Services.Azure;
 
-namespace BervProject.WebApi.Boilerplate.Services.Azure
+using System.Threading.Tasks;
+
+/// <summary>
+/// Azure Queue Service
+/// </summary>
+public interface IAzureQueueServices
 {
-    public interface IAzureQueueServices
-    {
-        Task<bool> SendMessage(string message);
-    }
+    /// <summary>
+    /// Send Message
+    /// </summary>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    Task<bool> SendMessage(string message);
 }

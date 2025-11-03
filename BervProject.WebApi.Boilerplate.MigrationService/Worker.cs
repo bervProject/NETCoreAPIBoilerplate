@@ -1,8 +1,8 @@
-using System.Diagnostics;
-using BervProject.WebApi.Boilerplate.EntityFramework;
-using Microsoft.EntityFrameworkCore;
-
 namespace BervProject.WebApi.Boilerplate.MigrationService;
+
+using System.Diagnostics;
+using EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 public class Worker : BackgroundService
 {

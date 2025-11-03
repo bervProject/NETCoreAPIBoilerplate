@@ -1,8 +1,19 @@
-﻿namespace BervProject.WebApi.Boilerplate.Services.Azure
+﻿namespace BervProject.WebApi.Boilerplate.Services.Azure;
+
+/// <summary>
+/// Azure Storage Queue Service
+/// </summary>
+public interface IAzureStorageQueueService
 {
-    public interface IAzureStorageQueueService
-    {
-        bool SendMessage(string message);
-        string ReceiveMessage();
-    }
+    /// <summary>
+    /// Send Message
+    /// </summary>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    bool SendMessage(string message);
+    /// <summary>
+    /// Receive Message
+    /// </summary>
+    /// <returns></returns>
+    string ReceiveMessage();
 }
