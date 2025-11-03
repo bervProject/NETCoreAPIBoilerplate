@@ -1,7 +1,12 @@
-﻿namespace BervProject.WebApi.Boilerplate.Models
+﻿namespace BervProject.WebApi.Boilerplate.Models;
+
+/// <summary>
+/// Message Data
+/// </summary>
+public class MessageData
 {
-    public class MessageData
-    {
-        public string Message { get; set; }
-    }
+    /// <summary>
+    /// Message
+    /// </summary>
+    public string Message { get; init; }
 }

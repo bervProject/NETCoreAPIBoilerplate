@@ -1,16 +1,27 @@
-﻿using System;
+﻿namespace BervProject.WebApi.Boilerplate.Entities;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace BervProject.WebApi.Boilerplate.Entities
+/// <summary>
+/// Publisher
+/// </summary>
+public class Publisher
 {
-    public class Publisher
-    {
-        public Guid Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Book> Books { get; set; }
-    }
+    /// <summary>
+    /// Id
+    /// </summary>
+    public Guid Id { get; set; }
+    /// <summary>
+    /// Name
+    /// </summary>
+    [Required]
+    public string Name { get; set; }
+    /// <summary>
+    /// Books
+    /// </summary>
+    [JsonIgnore]
+    public virtual ICollection<Book> Books { get; set; }
 }

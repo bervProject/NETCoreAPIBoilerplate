@@ -1,13 +1,22 @@
-﻿namespace BervProject.WebApi.Boilerplate.Extenstions;
+﻿namespace BervProject.WebApi.Boilerplate.Extensions;
+
 using Amazon.DynamoDBv2;
 using Amazon.S3;
 using Amazon.SimpleEmail;
-using BervProject.WebApi.Boilerplate.Services.AWS;
+using Services.AWS;
 using Microsoft.Extensions.DependencyInjection;
 
-public static class SetupAWSExtension
+
+/// <summary>
+/// AWS Extension for setup all AWS Services
+/// </summary>
+public static class SetupAwsExtension
 {
-    public static void SetupAWS(this IServiceCollection services)
+    /// <summary>
+    /// Setup AWS Services
+    /// </summary>
+    /// <param name="services"></param>
+    public static void SetupAws(this IServiceCollection services)
     {
         services.AddAWSService<IAmazonS3>();
         services.AddAWSService<IAmazonDynamoDB>();

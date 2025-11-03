@@ -4,7 +4,7 @@ using System.Reflection;
 using Autofac.Extensions.DependencyInjection;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
-using BervProject.WebApi.Boilerplate.Extenstions;
+using BervProject.WebApi.Boilerplate.Extensions;
 using BervProject.WebApi.Boilerplate.Services;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using Hangfire;
@@ -28,14 +28,14 @@ builder.Logging.AddNLogWeb();
 builder.Host.UseNLog();
 
 // settings injection
-var awsConfig = builder.Configuration.GetSection("AWS").Get<AWSConfiguration>();
+var awsConfig = builder.Configuration.GetSection("AWS").Get<AwsConfiguration>();
 builder.Services.AddSingleton(awsConfig);
 
 var azureConfig = builder.Configuration.GetSection("Azure").Get<AzureConfiguration>();
 builder.Services.AddSingleton(azureConfig);
 
 // aws services
-builder.Services.SetupAWS();
+builder.Services.SetupAws();
 
 // azure services
 builder.Services.SetupAzure(builder.Configuration);
