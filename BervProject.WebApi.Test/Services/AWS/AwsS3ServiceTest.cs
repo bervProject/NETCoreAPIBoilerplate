@@ -10,7 +10,7 @@ using Xunit;
 
 namespace BervProject.WebApi.Test.Services.AWS
 {
-    public class AWSS3ServiceTest
+    public class AwsS3ServiceTest
     {
 
         [Fact]
@@ -26,7 +26,7 @@ namespace BervProject.WebApi.Test.Services.AWS
             fileMock.SetupGet(x => x.FileName).Returns(fileName);
             fileMock.SetupGet(x => x.ContentType).Returns(contentType);
             fileMock.Setup(x => x.OpenReadStream()).Returns(nullStream);
-            var awsS3Service = mock.Create<AWSS3Service>();
+            var awsS3Service = mock.Create<AwsS3Service>();
             var result = await awsS3Service.UploadFile(fileMock.Object);
             Assert.Equal($"uploads/{fileName}", result);
             fileMock.Verify(x => x.OpenReadStream(), Times.Once());

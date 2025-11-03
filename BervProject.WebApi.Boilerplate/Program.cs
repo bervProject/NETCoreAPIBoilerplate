@@ -23,8 +23,7 @@ builder.AddServiceDefaults();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
-builder.Logging.AddNLog("Nlog.config");
-builder.Logging.AddNLogWeb();
+builder.Logging.AddNLogWeb("Nlog.config");
 builder.Host.UseNLog();
 
 // settings injection

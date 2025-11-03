@@ -23,7 +23,7 @@ public static class SetupAwsExtension
         services.AddAWSService<IAmazonSimpleEmailService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IDynamoDbServices, DynamoDbServices>();
-        services.AddScoped<IAWSS3Service, AWSS3Service>();
+        services.AddScoped<IAwsS3Service, AwsS3Service>();
     }
 }
 
