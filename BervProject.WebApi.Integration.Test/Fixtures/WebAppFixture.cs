@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿namespace BervProject.WebApi.Integration.Test.Fixtures;
 
-namespace BervProject.WebApi.Integration.Test.Fixtures
+using Microsoft.AspNetCore.Mvc.Testing;
+
+public class WebAppFixture : IDisposable
 {
-    public class WebAppFixture : IDisposable
+    public WebAppFixture()
     {
-        public WebAppFixture()
-        {
-            WebApp = new WebApplicationFactory<Program>()
-                    .WithWebHostBuilder(builder =>
-                    {
-                        // ... Configure test services
-                    });
+        WebApp = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(_ =>
+            {
+                // ... Configure test services
+            });
 
-        }
-
-        public void Dispose() => WebApp.Dispose();
-
-        public WebApplicationFactory<Program> WebApp { get; private set; }
     }
+
+    public void Dispose() => WebApp.Dispose();
+
+    public WebApplicationFactory<Program> WebApp { get; }
 }
