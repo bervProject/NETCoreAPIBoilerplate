@@ -30,7 +30,7 @@ resources:
 variables:
   buildConfiguration: 'Release'
   imageName: 'berviantoleo/net-core-boilerplate'
-  dotnetSdkVersion: '9.0.x'
+  dotnetSdkVersion: '10.0.x'
   postgresConnectionString: 'Host=localhost;Database=testdb;Username=postgres;Password=postgres'
 
 jobs:
