@@ -18,7 +18,10 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddServiceDefaults();
+if (Assembly.GetEntryAssembly()?.GetName().Name != "GetDocument.Insider")
+{
+    builder.AddServiceDefaults();
+}
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
