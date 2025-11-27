@@ -15,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,17 +55,7 @@ builder.Services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql
 
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning();
-builder.Services.AddSwaggerGen(options =>
-{
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Boilerplate API",
-        Description = "An ASP.NET Core Web API"
-    });
-});
+builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
@@ -88,6 +77,7 @@ if (!string.IsNullOrWhiteSpace(topicName) && !string.IsNullOrWhiteSpace(connecti
 // register essential things
 if (app.Environment.IsDevelopment())
 {
+    app.MapOpenApi();
     app.UseDeveloperExceptionPage();
 }
 else
@@ -99,17 +89,6 @@ else
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.UseSwagger(c =>
-{
-    c.RouteTemplate = "api/docs/{documentName}/swagger.json";
-});
-
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/api/docs/v1/swagger.json", "My API V1");
-    c.RoutePrefix = "api/docs";
-});
 
 app.MapDefaultEndpoints();
 
