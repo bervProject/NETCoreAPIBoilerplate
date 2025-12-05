@@ -20,6 +20,9 @@ updates:
     nlog:
       patterns:
         - "NLog*"
+    aspire:
+      patterns:
+        - "Aspire*"
   
 - package-ecosystem: github-actions
   directory: "/"
