@@ -17,10 +17,10 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.10.8" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.20" />
-    <PackageReference Include="AWSSDK.S3" Version="4.0.17.2" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.11" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.10.9" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.21" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.17.3" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.12" />
     <PackageReference Include="Azure.Data.Tables" Version="12.11.0" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.27.0" />
