@@ -45,7 +45,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Migrate DB
       run: |
-        dotnet tool install --global dotnet-ef
+        dotnet tool restore
         dotnet ef database update --startup-project BervProject.WebApi.Boilerplate --project BervProject.WebApi.Boilerplate
     - name: Test
       run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --collect:"XPlat Code Coverage"
