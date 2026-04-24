@@ -1,4 +1,5 @@
-﻿using BervProject.WebApi.Boilerplate.Entities;
+using System;
+using BervProject.WebApi.Boilerplate.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BervProject.WebApi.Boilerplate.EntityFramework
