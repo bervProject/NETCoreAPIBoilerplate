@@ -15,7 +15,10 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddServiceDefaults();
+if (!args.Contains("--no-build"))
+{
+    builder.AddServiceDefaults();
+}
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
