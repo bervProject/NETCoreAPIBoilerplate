@@ -35,6 +35,22 @@ namespace BervProject.WebApi.Boilerplate.EntityFramework
         }
 
         /// <summary>
+        /// Configure DbContext for migrations
+        /// </summary>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__BoilerplateConnectionString");
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    connectionString = "Host=localhost;Database=testdb;Username=postgres;Password=postgres";
+                }
+                optionsBuilder.UseNpgsql(connectionString);
+            }
+        }
+
+        /// <summary>
         /// Adding relationship
         /// </summary>
         /// <param name="modelBuilder"></param>
