@@ -16,6 +16,13 @@ public static class Extensions
 {
     public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
     {
+        if (builder.Environment.EnvironmentName == "Development" && 
+            (System.Environment.GetCommandLineArgs().Any(arg => arg.Contains("ef")) || 
+             System.Environment.GetCommandLineArgs().Any(arg => arg.Contains("database"))))
+        {
+            return builder;
+        }
+        
         builder.ConfigureOpenTelemetry();
 
         builder.AddDefaultHealthChecks();
