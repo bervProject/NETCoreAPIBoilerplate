@@ -16,11 +16,11 @@ using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Logging.ClearProviders();
-builder.Logging.SetMinimumLevel(LogLevel.Trace);
-builder.Logging.AddNLogWeb("Nlog.config");
-builder.Host.UseNLog();
+// builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+// builder.Logging.ClearProviders();
+// builder.Logging.SetMinimumLevel(LogLevel.Trace);
+// builder.Logging.AddNLogWeb("Nlog.config");
+// builder.Host.UseNLog();
 
 // settings injection
 var awsConfig = builder.Configuration.GetSection("AWS").Get<AwsConfiguration>();
