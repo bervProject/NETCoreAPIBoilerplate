@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main ]
 env:
-  ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
+  ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=devpass4444"
 jobs:
   build:
     # Service containers to run with `container-job`
@@ -18,7 +18,7 @@ jobs:
           - 5432:5432
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: devpass4444
           POSTGRES_DB: testdb
         # Set health checks to wait until postgres has started
         options: >-
