@@ -18,14 +18,6 @@ namespace BervProject.WebApi.Boilerplate.EntityFramework
         public DbSet<Publisher> Publishers { get; set; }
 
         /// <summary>
-        /// Default Constructor
-        /// </summary>
-        public BoilerplateDbContext() : base()
-        {
-
-        }
-
-        /// <summary>
         /// Constructor with DbContextOptions
         /// </summary>
         /// <param name="options">DbContextOptions</param>
