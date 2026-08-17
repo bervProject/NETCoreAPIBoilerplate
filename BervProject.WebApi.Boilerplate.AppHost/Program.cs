@@ -11,6 +11,7 @@ var tables = storage.AddTables("tables");
 
 var migration = builder.AddProject<Projects.BervProject_WebApi_Boilerplate_MigrationService>("migrations")
     .WithReference(postgresdb, connectionName: "BoilerplateConnectionString")
+    .WaitFor(postgresdb)
     .WithExplicitStart();
 
 builder.AddProject<Projects.BervProject_WebApi_Boilerplate>("apiservice")
