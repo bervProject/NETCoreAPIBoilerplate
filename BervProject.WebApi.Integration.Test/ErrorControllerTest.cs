@@ -1,21 +1,22 @@
-﻿namespace BervProject.WebApi.Integration.Test;
+namespace BervProject.WebApi.Integration.Test;
 
 using Fixtures;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
 
 [Collection("Webapp")]
 public class ErrorControllerTest
 {
-    private readonly WebApplicationFactory<Program> _applicationFactory;
-    public ErrorControllerTest(WebAppFixture webAppFixtures)
+    private readonly WebAppFixture _fixture;
+
+    public ErrorControllerTest(WebAppFixture fixture)
     {
-        _applicationFactory = webAppFixtures.WebApp;
+        _fixture = fixture;
     }
+
     [Fact]
     public async Task SuccessCheck()
     {
-        var client = _applicationFactory.CreateClient();
+        var client = _fixture.CreateApiClient();
         var response = await client.GetAsync("/api/v1.0/error/error");
         Assert.False(response.IsSuccessStatusCode);
         Assert.Equal(System.Net.HttpStatusCode.InternalServerError, response.StatusCode);

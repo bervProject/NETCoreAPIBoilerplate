@@ -1,22 +1,23 @@
 namespace BervProject.WebApi.Integration.Test;
 
 using System.Net.Http.Json;
-using Fixtures;
 using Boilerplate.Entities;
-using Microsoft.AspNetCore.Mvc.Testing;
+using Fixtures;
 
 [Collection("Webapp")]
 public class NoteControllerTest
 {
-    private readonly WebApplicationFactory<Program> _applicationFactory;
-    public NoteControllerTest(WebAppFixture webAppFixtures)
+    private readonly WebAppFixture _fixture;
+
+    public NoteControllerTest(WebAppFixture fixture)
     {
-        _applicationFactory = webAppFixtures.WebApp;
+        _fixture = fixture;
     }
+
     [Fact]
     public async Task CreateNoteTest()
     {
-        var client = _applicationFactory.CreateClient();
+        var client = _fixture.CreateApiClient();
         var response = await client.PostAsync("/api/v1.0/note/createTable", null);
         Assert.True(response.IsSuccessStatusCode);
         var stringResponse = await response.Content.ReadAsStringAsync();

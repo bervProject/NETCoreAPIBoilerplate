@@ -2,20 +2,21 @@ namespace BervProject.WebApi.Integration.Test;
 
 using System.Net.Http.Json;
 using Fixtures;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 [Collection("Webapp")]
 public class BlobControllerTest
 {
-    private readonly WebApplicationFactory<Program> _applicationFactory;
-    public BlobControllerTest(WebAppFixture webAppFixtures)
+    private readonly WebAppFixture _fixture;
+
+    public BlobControllerTest(WebAppFixture fixture)
     {
-        _applicationFactory = webAppFixtures.WebApp;
+        _fixture = fixture;
     }
+
     [Fact]
     public async Task UploadBlobTest()
     {
-        var client = _applicationFactory.CreateClient();            
+        var client = _fixture.CreateApiClient();
         var response = await client.PostAsync("/api/v1.0/blob/create", null);
         Assert.True(response.IsSuccessStatusCode);
         using var file1 = File.OpenRead(@"Docs/test.txt");

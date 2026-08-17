@@ -1,4 +1,4 @@
-﻿namespace BervProject.WebApi.Boilerplate.Extensions;
+namespace BervProject.WebApi.Boilerplate.Extensions;
 
 using Entities;
 using Services;
@@ -23,8 +23,12 @@ public static class SetupAzureExtension
         {
             builder.AddBlobServiceClient(config.GetConnectionString("AzureStorageBlob"));
             builder.AddQueueServiceClient(config.GetConnectionString("AzureStorageQueue"));
-            builder.AddServiceBusClient(config.GetConnectionString("AzureServiceBus"));
             builder.AddTableServiceClient(config.GetConnectionString("AzureStorageTable"));
+            var serviceBusConnectionString = config.GetConnectionString("AzureServiceBus");
+            if (!string.IsNullOrWhiteSpace(serviceBusConnectionString))
+            {
+                builder.AddServiceBusClient(serviceBusConnectionString);
+            }
         });
         services.AddScoped<IAzureQueueServices, AzureQueueServices>();
         services.AddScoped<ITopicServices, TopicServices>();

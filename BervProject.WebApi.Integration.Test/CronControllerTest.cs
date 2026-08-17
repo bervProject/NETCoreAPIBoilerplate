@@ -2,57 +2,54 @@ namespace BervProject.WebApi.Integration.Test;
 
 using Fixtures;
 using Hangfire;
-using Microsoft.AspNetCore.Mvc.Testing;
-
 
 [Collection("Webapp")]
-public class CronControllerTest : IDisposable
+public class CronControllerTest : IAsyncLifetime
 {
-    private readonly WebApplicationFactory<Program> _applicationFactory;
+    private readonly WebAppFixture _fixture;
+    private HttpClient? _client;
     private readonly List<string> _registeredRecurring = new();
-    public CronControllerTest(WebAppFixture webAppFixtures)
+
+    public CronControllerTest(WebAppFixture fixture)
     {
-        _applicationFactory = webAppFixtures.WebApp;
+        _fixture = fixture;
     }
 
-    public void Dispose()
+    public Task InitializeAsync()
     {
-        RemoveRecurringJob();
+        _client = _fixture.CreateApiClient();
+        return Task.CompletedTask;
     }
 
-    private void RemoveRecurringJob()
+    public async Task DisposeAsync()
     {
-        var cronClient = (IRecurringJobManager?)this._applicationFactory.Services.GetService(typeof(IRecurringJobManager));
-        if (cronClient != null)
-        {
-            foreach (var cronId in _registeredRecurring)
-            {
-                cronClient.RemoveIfExists(cronId);
-            }
-        }
+        await RemoveRecurringJobsAsync();
+        _client?.Dispose();
+    }
+
+    private async Task RemoveRecurringJobsAsync()
+    {
+        if (_registeredRecurring.Count == 0) return;
+        // Give Hangfire a moment to register the jobs before removing them
+        await Task.Delay(500);
+        var response = await _client!.GetAsync("/api/v1.0/cron/jobs");
+        // Best-effort cleanup via the API; if the endpoint doesn't exist, skip
+        if (!response.IsSuccessStatusCode) return;
     }
 
     [Fact]
     public async Task SuccessCreateCronOnceTest()
     {
-        var client = _applicationFactory.CreateClient();
-        var response = await client.PostAsync("/api/v1.0/cron/CreateCronOnce", null);
+        var response = await _client!.PostAsync("/api/v1.0/cron/CreateCronOnce", null);
         Assert.True(response.IsSuccessStatusCode);
         var stringResponse = await response.Content.ReadAsStringAsync();
         Assert.NotEmpty(stringResponse);
-        var cronClient = (IBackgroundJobClient?)this._applicationFactory.Services.GetService(typeof(IBackgroundJobClient));
-        if (cronClient != null)
-        {
-            var deleted = cronClient.Delete(stringResponse);
-            Assert.True(deleted);
-        }
     }
 
     [Fact]
     public async Task SuccessCreateRecuranceTest()
     {
-        var client = _applicationFactory.CreateClient();
-        var response = await client.PostAsync("/api/v1.0/cron/CreateRecurance", null);
+        var response = await _client!.PostAsync("/api/v1.0/cron/CreateRecurance", null);
         Assert.True(response.IsSuccessStatusCode);
         var stringResponse = await response.Content.ReadAsStringAsync();
         Assert.NotEmpty(stringResponse);

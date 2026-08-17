@@ -6,21 +6,23 @@ using System.Text.Json;
 using Boilerplate.Models;
 using Boilerplate.Models.Response;
 using Fixtures;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 [Collection("Webapp")]
 public class StorageQueueControllerTest
 {
-    private readonly WebApplicationFactory<Program> _applicationFactory;
-    public StorageQueueControllerTest(WebAppFixture webAppFixtures)
+    private readonly WebAppFixture _fixture;
+
+    public StorageQueueControllerTest(WebAppFixture fixture)
     {
-        _applicationFactory = webAppFixtures.WebApp;
+        _fixture = fixture;
     }
+
     [Fact]
     public async Task StorageQueueSendMessageTest()
     {
-        var client = _applicationFactory.CreateClient();
-        var messageData = new MessageData{
+        var client = _fixture.CreateApiClient();
+        var messageData = new MessageData
+        {
             Message = "Hello World!"
         };
         using var content = new StringContent(JsonSerializer.Serialize(messageData), Encoding.UTF8, "application/json");
@@ -35,6 +37,5 @@ public class StorageQueueControllerTest
         Assert.NotNull(data);
         Assert.True(data.IsSuccess);
         Assert.Equal("Hello World!", data.YourMessage);
-
     }
 }

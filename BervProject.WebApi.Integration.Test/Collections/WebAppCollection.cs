@@ -1,4 +1,4 @@
-﻿namespace BervProject.WebApi.Integration.Test.Collections;
+namespace BervProject.WebApi.Integration.Test.Collections;
 
 using Fixtures;
 

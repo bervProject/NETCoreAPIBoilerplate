@@ -4,34 +4,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-env:
-  ConnectionStrings__BoilerplateConnectionString: "Host=localhost;Database=testdb;Username=postgres;Password=postgres"
 jobs:
   build:
-    # Service containers to run with `container-job`
-    services:
-      # Label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres:18-alpine
-        ports:
-          - 5432:5432
-        # Provide the password for postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: testdb
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      azurite:
-        image: mcr.microsoft.com/azure-storage/azurite
-        ports:
-          - 10000:10000
-          - 10001:10001
-          - 10002:10002
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v7
@@ -43,10 +17,6 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Migrate DB
-      run: |
-        dotnet tool restore
-        dotnet ef database update --startup-project BervProject.WebApi.Boilerplate.MigrationService --project BervProject.WebApi.Boilerplate
     - name: Test
       run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Report Codecov
