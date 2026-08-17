@@ -19,8 +19,10 @@ public class WebAppFixture : IAsyncLifetime
         await _app.StartAsync();
 
         var rns = _app.Services.GetRequiredService<ResourceNotificationService>();
+        var rcs = _app.Services.GetRequiredService<ResourceCommandService>();
 
-        // Wait for migration to finish before the API is considered ready
+        // migrations uses WithExplicitStart — trigger the "start" command manually
+        await rcs.ExecuteCommandAsync("migrations", "start");
         await rns.WaitForResourceAsync("migrations", KnownResourceStates.Finished);
         await rns.WaitForResourceHealthyAsync("apiservice");
     }
