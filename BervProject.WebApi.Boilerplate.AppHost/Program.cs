@@ -1,7 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedis("cache").WithRedisInsight();
-var postgres = builder.AddPostgres("postgres").WithPgAdmin();
+var postgres = builder.AddPostgres("postgres")
+    .WithPgAdmin()
+    .WithEnvironment("POSTGRES_DB", "postgresdb");
 var postgresdb = postgres.AddDatabase("postgresdb");
 var serviceBus = builder.AddAzureServiceBus("messaging").RunAsEmulator();
 var storage = builder.AddAzureStorage("storage").RunAsEmulator();
