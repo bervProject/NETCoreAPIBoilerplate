@@ -11,8 +11,8 @@ namespace BervProject.WebApi.Boilerplate.Controllers
     [ApiVersion("1.0")]
     public class SThreeController : ControllerBase
     {
-        private readonly IAWSS3Service _awsS3Service;
-        public SThreeController(IAWSS3Service awsS3Service)
+        private readonly IAwsS3Service _awsS3Service;
+        public SThreeController(IAwsS3Service awsS3Service)
         {
             _awsS3Service = awsS3Service;
         }

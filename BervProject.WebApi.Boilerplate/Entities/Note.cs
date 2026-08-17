@@ -1,18 +1,36 @@
+namespace BervProject.WebApi.Boilerplate.Entities;
 
 using System;
 using Azure;
 using Azure.Data.Tables;
 
-namespace BervProject.WebApi.Boilerplate.Entities
+/// <summary>
+/// Note
+/// </summary>
+public class Note : ITableEntity
 {
-    public class Note : ITableEntity
-    {
-        public string PartitionKey { get; set; }
-        public string RowKey { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
-        public DateTimeOffset? Timestamp { get; set; }
-        public ETag ETag { get; set; }
-    }
+    /// <summary>
+    /// Partition Key
+    /// </summary>
+    public string PartitionKey { get; set; }
+    /// <summary>
+    /// Row key
+    /// </summary>
+    public string RowKey { get; set; }
+    /// <summary>
+    /// Title
+    /// </summary>
+    public string Title { get; set; }
+    /// <summary>
+    /// Message
+    /// </summary>
+    public string Message { get; set; }
+    /// <summary>
+    /// Timestamp
+    /// </summary>
+    public DateTimeOffset? Timestamp { get; set; }
+    /// <summary>
+    /// ETag
+    /// </summary>
+    public ETag ETag { get; set; }
 }
-

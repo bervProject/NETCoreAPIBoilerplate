@@ -1,9 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿namespace BervProject.WebApi.Boilerplate.Services.AWS;
 
-namespace BervProject.WebApi.Boilerplate.Services.AWS
+using System.Threading.Tasks;
+
+/// <summary>
+/// Dynamo DB Service Interface
+/// </summary>
+public interface IDynamoDbServices
 {
-    public interface IDynamoDbServices
-    {
-        Task CreateObject();
-    }
+    /// <summary>
+    /// Create an object
+    /// </summary>
+    /// <returns></returns>
+    Task CreateObject();
 }

@@ -1,7 +1,12 @@
-﻿namespace BervProject.WebApi.Boilerplate.Services
+﻿namespace BervProject.WebApi.Boilerplate.Services;
+
+/// <summary>
+/// Interface Cron Service
+/// </summary>
+public interface ICronService
 {
-    public interface ICronService
-    {
-        public void HelloWorld();
-    }
+    /// <summary>
+    /// Hello World method
+    /// </summary>
+    public void HelloWorld();
 }

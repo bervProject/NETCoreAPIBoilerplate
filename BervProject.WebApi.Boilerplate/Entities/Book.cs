@@ -1,13 +1,24 @@
-﻿using System;
+﻿namespace BervProject.WebApi.Boilerplate.Entities;
+
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BervProject.WebApi.Boilerplate.Entities
+/// <summary>
+/// Book Entity
+/// </summary>
+public class Book
 {
-    public class Book
-    {
-        public Guid Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        public virtual Publisher Publisher { get; set; }
-    }
+    /// <summary>
+    /// Id
+    /// </summary>
+    public Guid Id { get; set; }
+    /// <summary>
+    /// Name
+    /// </summary>
+    [Required]
+    public string Name { get; set; }
+    /// <summary>
+    /// Publisher
+    /// </summary>
+    public virtual Publisher Publisher { get; set; }
 }

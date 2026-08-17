@@ -1,30 +1,38 @@
-﻿namespace BervProject.WebApi.Boilerplate.ConfigModel
+﻿namespace BervProject.WebApi.Boilerplate.ConfigModel;
+
+/// <summary>
+/// AWS Config
+/// </summary>
+public class AwsConfiguration
 {
-    public class AWSConfiguration
-    {
-        public AWSBasicConfiguration Basic { get; set; }
-        public AWSEmailConfiguration Email { get; set; }
-        public AWSDynamoConfiguration Dynamo { get; set; }
-    }
+    /// <summary>
+    /// Email
+    /// </summary>
+    public AwsEmailConfiguration Email { get; set; }
+    /// <summary>
+    /// Dynamo
+    /// </summary>
+    public AwsDynamoConfiguration Dynamo { get; set; }
+}
 
-    public class AWSAuth
-    {
-        public string AccessKey { get; set; }
-        public string SecretKey { get; set; }
-    }
+/// <summary>
+/// AWS Dynamo Config
+/// </summary>
+public class AwsDynamoConfiguration
+{
+    /// <summary>
+    /// Location
+    /// </summary>
+    public string Location { get; set; }
+}
 
-    public class AWSBasicConfiguration
-    {
-        public AWSAuth Auth { get; set; }
-    }
-
-    public class AWSDynamoConfiguration
-    {
-        public string Location { get; set; }
-    }
-
-    public class AWSEmailConfiguration
-    {
-        public string Location { get; set; }
-    }
+/// <summary>
+/// AWS Email Config
+/// </summary>
+public class AwsEmailConfiguration
+{
+    /// <summary>
+    /// Location
+    /// </summary>
+    public string Location { get; set; }
 }

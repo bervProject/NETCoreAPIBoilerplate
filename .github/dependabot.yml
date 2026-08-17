@@ -20,6 +20,17 @@ updates:
     nlog:
       patterns:
         - "NLog*"
+    aspire:
+      patterns:
+        - "Aspire*"
+    core:
+      patterns:
+        - "Microsoft*"
+        - "Npgsql*"
+        - "Swashbuckle*"
+        - "Autofac*"
+        - "System*"
+        - "Newtonsoft*"
   
 - package-ecosystem: github-actions
   directory: "/"

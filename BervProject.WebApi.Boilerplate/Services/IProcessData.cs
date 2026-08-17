@@ -1,7 +1,13 @@
-﻿namespace BervProject.WebApi.Boilerplate.Services
+﻿namespace BervProject.WebApi.Boilerplate.Services;
+
+/// <summary>
+/// Interface Process Message
+/// </summary>
+public interface IProcessData
 {
-    public interface IProcessData
-    {
-        void Process(string message);
-    }
+    /// <summary>
+    /// Process message
+    /// </summary>
+    /// <param name="message"></param>
+    void Process(string message);
 }

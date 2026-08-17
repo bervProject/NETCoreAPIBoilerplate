@@ -1,10 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿namespace BervProject.WebApi.Boilerplate.Services.Azure;
 
-namespace BervProject.WebApi.Boilerplate.Services.Azure
+using System.Threading.Tasks;
+
+/// <summary>
+/// Service Bus Topic Sub
+/// </summary>
+public interface IServiceBusTopicSubscription
 {
-    public interface IServiceBusTopicSubscription
-    {
-        void RegisterOnMessageHandlerAndReceiveMessages();
-        Task CloseSubscriptionClientAsync();
-    }
+    /// <summary>
+    /// Receive topic registration
+    /// </summary>
+    void RegisterOnMessageHandlerAndReceiveMessages();
+    /// <summary>
+    /// Close topic subs
+    /// </summary>
+    /// <returns></returns>
+    Task CloseSubscriptionClientAsync();
 }

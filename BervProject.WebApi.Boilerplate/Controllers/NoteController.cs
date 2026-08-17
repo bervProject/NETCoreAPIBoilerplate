@@ -2,6 +2,7 @@ using BervProject.WebApi.Boilerplate.Entities;
 using BervProject.WebApi.Boilerplate.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.AspNetCore.Http;
 
 namespace BervProject.WebApi.Boilerplate.Controllers

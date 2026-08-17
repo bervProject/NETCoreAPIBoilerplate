@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿namespace BervProject.WebApi.Boilerplate.Models;
+
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BervProject.WebApi.Boilerplate.Models
+/// <summary>
+/// Email Send Request
+/// </summary>
+public class EmailSendRequest
 {
-    public class EmailSendRequest
-    {
-        [Required]
-        public List<string> To { get; set; }
-    }
+    /// <summary>
+    /// Destination
+    /// </summary>
+    [Required]
+    public List<string> To { get; } = new();
 }

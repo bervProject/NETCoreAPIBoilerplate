@@ -1,15 +1,29 @@
+namespace BervProject.WebApi.Boilerplate.Models;
+
 using System;
 
-namespace BervProject.WebApi.Boilerplate.Models
+/// <summary>
+/// Weather Forecast
+/// </summary>
+public class WeatherForecast
 {
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
+    /// <summary>
+    /// Date
+    /// </summary>
+    public DateTime Date { get; set; }
 
-        public int TemperatureC { get; set; }
+    /// <summary>
+    /// Temperature in Celsius
+    /// </summary>
+    public int TemperatureC { get; set; }
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    /// <summary>
+    /// Temperature in F
+    /// </summary>
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
-        public string Summary { get; set; }
-    }
+    /// <summary>
+    /// Summary
+    /// </summary>
+    public string Summary { get; set; }
 }

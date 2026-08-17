@@ -1,4 +1,6 @@
-﻿using Amazon.SimpleEmail;
+﻿namespace BervProject.WebApi.Test.Services.AWS;
+
+using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using Autofac.Extras.Moq;
 using BervProject.WebApi.Boilerplate.Services.AWS;
@@ -9,64 +11,61 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace BervProject.WebApi.Test.Services.AWS
+public class EmailServiceTest
 {
-    public class EmailServiceTest
+    [Fact]
+    public async Task SendEmailSuccess()
     {
-        [Fact]
-        public async Task SendEmailSuccess()
+        using var mock = AutoMock.GetLoose();
+        var mockEmailService = mock.Mock<IAmazonSimpleEmailService>();
+        var logMock = mock.Mock<ILogger<EmailService>>();
+        var reciever = new List<String>
         {
-            using var mock = AutoMock.GetLoose();
-            var mockEmailService = mock.Mock<IAmazonSimpleEmailService>();
-            var logMock = mock.Mock<ILogger<EmailService>>();
-            var reciever = new List<String>
-            {
-                "myreceiver@receiver.com"
-            };
-            var sendEmailResponse = new SendEmailResponse()
-            {
-                HttpStatusCode = System.Net.HttpStatusCode.OK,
-                MessageId = "random",
-                ResponseMetadata = new Amazon.Runtime.ResponseMetadata()
-            };
-            mockEmailService.Setup(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default))
-                .Returns(Task.FromResult(sendEmailResponse));
-            var emailService = mock.Create<EmailService>();
-            await emailService.SendEmail(reciever);
-            mockEmailService.Verify(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default), Times.Once());
-        }
+            "myreceiver@receiver.com"
+        };
+        var sendEmailResponse = new SendEmailResponse()
+        {
+            HttpStatusCode = System.Net.HttpStatusCode.OK,
+            MessageId = "random",
+            ResponseMetadata = new Amazon.Runtime.ResponseMetadata()
+        };
+        mockEmailService.Setup(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default))
+            .Returns(Task.FromResult(sendEmailResponse));
+        var emailService = mock.Create<EmailService>();
+        await emailService.SendEmail(reciever);
+        mockEmailService.Verify(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default), Times.Once());
+    }
 
-        [Fact]
-        public async Task SendEmailFailed()
+    [Fact]
+    public async Task SendEmailFailed()
+    {
+        using var mock = AutoMock.GetLoose();
+        var mockEmailService = mock.Mock<IAmazonSimpleEmailService>();
+        var logMock = mock.Mock<ILogger<EmailService>>();
+        var reciever = new List<String>
         {
-            using var mock = AutoMock.GetLoose();
-            var mockEmailService = mock.Mock<IAmazonSimpleEmailService>();
-            var logMock = mock.Mock<ILogger<EmailService>>();
-            var reciever = new List<String>
-            {
-                "myreceiver@receiver.com"
-            };
-            var sendEmailResponse = new SendEmailResponse()
-            {
-                HttpStatusCode = System.Net.HttpStatusCode.InternalServerError,
-                MessageId = "random",
-                ResponseMetadata = new Amazon.Runtime.ResponseMetadata()
-            };
-            mockEmailService.Setup(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default))
-                .Returns(Task.FromResult(sendEmailResponse));
-            var emailService = mock.Create<EmailService>();
-            await emailService.SendEmail(reciever);
-            mockEmailService.Verify(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default), Times.Once());
-            logMock.Verify(l =>
+            "myreceiver@receiver.com"
+        };
+        var sendEmailResponse = new SendEmailResponse()
+        {
+            HttpStatusCode = System.Net.HttpStatusCode.InternalServerError,
+            MessageId = "random",
+            ResponseMetadata = new Amazon.Runtime.ResponseMetadata()
+        };
+        mockEmailService.Setup(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default))
+            .Returns(Task.FromResult(sendEmailResponse));
+        var emailService = mock.Create<EmailService>();
+        await emailService.SendEmail(reciever);
+        mockEmailService.Verify(x => x.SendEmailAsync(It.IsAny<SendEmailRequest>(), default), Times.Once());
+        logMock.Verify(l =>
                 l.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
                     It.Is<It.IsAnyType>((state, type) => state.ToString().Equals("There is a problem when sending email")),
                     null,
                     (Func<object, Exception, string>)It.IsAny<object>()
-                    ),
-                    Times.Once()
-            );
-        }
+                ),
+            Times.Once()
+        );
     }
 }

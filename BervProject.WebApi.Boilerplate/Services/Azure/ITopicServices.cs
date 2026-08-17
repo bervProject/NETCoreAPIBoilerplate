@@ -1,9 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿namespace BervProject.WebApi.Boilerplate.Services.Azure;
 
-namespace BervProject.WebApi.Boilerplate.Services.Azure
+using System.Threading.Tasks;
+
+/// <summary>
+/// Topic Service
+/// </summary>
+public interface ITopicServices
 {
-    public interface ITopicServices
-    {
-        Task<bool> SendTopic(string message);
-    }
+    /// <summary>
+    /// Sending topic
+    /// </summary>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    Task<bool> SendTopic(string message);
 }

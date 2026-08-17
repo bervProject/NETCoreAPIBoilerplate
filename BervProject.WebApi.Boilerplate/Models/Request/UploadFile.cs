@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+﻿namespace BervProject.WebApi.Boilerplate.Models.Request;
+
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace BervProject.WebApi.Boilerplate.Models.Request
+/// <summary>
+/// Upload File
+/// </summary>
+public class UploadFile
 {
-    public class UploadFile
-    {
-        [Required]
-        public IFormFile File { get; set; }
-    }
+    /// <summary>
+    /// File
+    /// </summary>
+    [Required]
+    public IFormFile File { get; set; }
 }
