@@ -1,13 +1,16 @@
 namespace BervProject.WebApi.Integration.Test.Fixtures;
 
-using Aspire.Hosting;
-using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Testing;
-using Microsoft.Extensions.DependencyInjection;
 using Projects;
 
 public class WebAppFixture : IAsyncLifetime
 {
+    // CI environments are slower — use a longer timeout when running in CI
+    private static readonly TimeSpan DefaultTimeout =
+        Environment.GetEnvironmentVariable("CI") is not null
+            ? TimeSpan.FromMinutes(10)
+            : TimeSpan.FromMinutes(3);
+
     private DistributedApplication? _app;
 
     public async Task InitializeAsync()
@@ -15,16 +18,22 @@ public class WebAppFixture : IAsyncLifetime
         var appHost = await DistributedApplicationTestingBuilder
             .CreateAsync<BervProject_WebApi_Boilerplate_AppHost>();
 
-        _app = await appHost.BuildAsync();
-        await _app.StartAsync();
+        _app = await appHost.BuildAsync()
+            .WaitAsync(DefaultTimeout);
 
-        var rns = _app.Services.GetRequiredService<ResourceNotificationService>();
-        var rcs = _app.Services.GetRequiredService<ResourceCommandService>();
+        await _app.StartAsync()
+            .WaitAsync(DefaultTimeout);
 
-        // migrations uses WithExplicitStart — trigger the "start" command manually
-        await rcs.ExecuteCommandAsync("migrations", "start");
-        await rns.WaitForResourceAsync("migrations", KnownResourceStates.Finished);
-        await rns.WaitForResourceHealthyAsync("apiservice");
+        using var cts = new CancellationTokenSource(DefaultTimeout);
+
+        // migrations has WithExplicitStart — trigger it via ResourceCommands then wait for
+        // it to finish. apiservice has .WaitForCompletion(migration), so it won't start until
+        // migrations is Finished.
+        await _app.ResourceCommands.ExecuteCommandAsync("migrations", "start", cts.Token);
+        await _app.ResourceNotifications
+            .WaitForResourceAsync("migrations", KnownResourceStates.Finished, cts.Token);
+        await _app.ResourceNotifications
+            .WaitForResourceHealthyAsync("apiservice", cts.Token);
     }
 
     public async Task DisposeAsync()
