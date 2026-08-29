@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Autofac.Extensions.DependencyInjection;
 using BervProject.WebApi.Boilerplate.ConfigModel;
 using BervProject.WebApi.Boilerplate.EntityFramework;
@@ -51,7 +52,10 @@ builder.Services.AddStackExchangeRedisCache(options =>
 builder.Services.AddDbContext<BoilerplateDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BoilerplateConnectionString")));
 
 builder.Services.AddControllers();
-builder.Services.AddApiVersioning();
+builder.Services.AddApiVersioning(options =>
+{
+    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+}).AddMvc();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

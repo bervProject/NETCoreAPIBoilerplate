@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace BervProject.WebApi.Integration.Test.Fixtures;
 
 using Aspire.Hosting.Testing;
@@ -18,6 +20,18 @@ public class WebAppFixture : IAsyncLifetime
         var appHost = await DistributedApplicationTestingBuilder
             .CreateAsync<BervProject_WebApi_Boilerplate_AppHost>();
 
+        appHost.Services.AddLogging(logging =>
+        {
+            logging.SetMinimumLevel(LogLevel.Debug);
+            // Override the logging filters from the app's configuration
+            logging.AddFilter(appHost.Environment.ApplicationName, LogLevel.Debug);
+            logging.AddFilter("Aspire.", LogLevel.Debug);
+        });
+        appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
+        {
+            clientBuilder.AddStandardResilienceHandler();
+        });
+        
         _app = await appHost.BuildAsync()
             .WaitAsync(DefaultTimeout);
 

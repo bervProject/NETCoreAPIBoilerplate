@@ -1,4 +1,5 @@
-﻿using BervProject.WebApi.Boilerplate.Models;
+﻿using Asp.Versioning;
+using BervProject.WebApi.Boilerplate.Models;
 using BervProject.WebApi.Boilerplate.Models.Response;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.AspNetCore.Http;

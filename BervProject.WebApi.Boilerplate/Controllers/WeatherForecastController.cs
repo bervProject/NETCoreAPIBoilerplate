@@ -1,15 +1,16 @@
-﻿using BervProject.WebApi.Boilerplate.Entities;
-using BervProject.WebApi.Boilerplate.EntityFramework;
-using BervProject.WebApi.Boilerplate.Models;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Asp.Versioning;
+using BervProject.WebApi.Boilerplate.Entities;
+using BervProject.WebApi.Boilerplate.EntityFramework;
+using BervProject.WebApi.Boilerplate.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {

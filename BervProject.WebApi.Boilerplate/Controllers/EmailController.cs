@@ -1,7 +1,8 @@
-﻿using BervProject.WebApi.Boilerplate.Models;
+﻿using System.Threading.Tasks;
+using Asp.Versioning;
+using BervProject.WebApi.Boilerplate.Models;
 using BervProject.WebApi.Boilerplate.Services.AWS;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {

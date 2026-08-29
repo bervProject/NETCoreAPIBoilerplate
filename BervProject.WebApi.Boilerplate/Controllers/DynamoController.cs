@@ -1,6 +1,7 @@
-﻿using BervProject.WebApi.Boilerplate.Services.AWS;
+﻿using System.Threading.Tasks;
+using Asp.Versioning;
+using BervProject.WebApi.Boilerplate.Services.AWS;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

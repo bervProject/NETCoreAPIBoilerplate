@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
+﻿using System.Collections.Generic;
+using Asp.Versioning;
 using BervProject.WebApi.Boilerplate.Models.Request;
 using BervProject.WebApi.Boilerplate.Services.Azure;
 using Microsoft.AspNetCore.Http;

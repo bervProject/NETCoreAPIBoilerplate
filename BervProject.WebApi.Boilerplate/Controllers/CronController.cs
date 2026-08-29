@@ -1,8 +1,8 @@
-﻿using BervProject.WebApi.Boilerplate.Services;
+﻿using Asp.Versioning;
+using BervProject.WebApi.Boilerplate.Services;
 using Hangfire;
-using Microsoft.AspNetCore.Mvc;
-using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BervProject.WebApi.Boilerplate.Controllers
 {
