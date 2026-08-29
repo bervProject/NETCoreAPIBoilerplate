@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace BervProject.WebApi.Integration.Test.Fixtures;
 
@@ -19,6 +20,8 @@ public class WebAppFixture : IAsyncLifetime
     {
         var appHost = await DistributedApplicationTestingBuilder
             .CreateAsync<BervProject_WebApi_Boilerplate_AppHost>();
+
+        appHost.Environment.EnvironmentName = Environments.Development;
 
         appHost.Services.AddLogging(logging =>
         {

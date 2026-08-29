@@ -23,12 +23,14 @@ builder.AddProject<Projects.BervProject_WebApi_Boilerplate>("apiservice")
     .WithReference(queues, connectionName: "AzureStorageQueue")
     .WithReference(tables, connectionName: "AzureStorageTable")
     .WithReference(serviceBus, connectionName: "AzureServiceBus")
+    .WithEnvironment(
+        "APPLICATIONINSIGHTS_CONNECTION_STRING",
+        "InstrumentationKey=00000000-0000-0000-0000-000000000000")
+    .WithEnvironment("ASPNETCORE_ENVIRONMENT", "Development")
     .WaitFor(cache)
     .WaitFor(postgresdb)
     .WaitFor(blobs)
     .WaitFor(queues)
-    .WaitFor(tables)
-    .WaitFor(serviceBus)
-    .WaitForCompletion(migration);
+    .WaitFor(tables);
 
 builder.Build().Run();
