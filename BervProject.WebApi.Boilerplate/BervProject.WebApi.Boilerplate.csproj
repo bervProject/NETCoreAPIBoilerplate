@@ -18,7 +18,7 @@
     <PackageReference Include="Asp.Versioning.OpenApi" Version="10.2.3" />
     <PackageReference Include="Autofac" Version="9.3.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.2" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.103.8" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.104" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.101.4" />
     <PackageReference Include="AWSSDK.S3" Version="4.0.103.3" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.100.14" />
