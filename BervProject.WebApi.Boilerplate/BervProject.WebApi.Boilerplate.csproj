@@ -24,8 +24,8 @@
     <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.100.15" />
     <PackageReference Include="Azure.Data.Tables" Version="12.13.0" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.21.0" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.30.0" />
-    <PackageReference Include="Azure.Storage.Queues" Version="12.28.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.30.1" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.28.1" />
     <PackageReference Include="Hangfire" Version="1.8.25" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.25" />
     <PackageReference Include="HangFire.Autofac" Version="2.7.0" />
