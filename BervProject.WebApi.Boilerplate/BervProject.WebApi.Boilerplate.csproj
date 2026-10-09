@@ -18,10 +18,10 @@
     <PackageReference Include="Asp.Versioning.OpenApi" Version="10.2.3" />
     <PackageReference Include="Autofac" Version="9.3.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.2" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.107" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.102.1" />
-    <PackageReference Include="AWSSDK.S3" Version="4.0.104.1" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.100.15" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.107.1" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.102.2" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.104.2" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.100.16" />
     <PackageReference Include="Azure.Data.Tables" Version="12.13.0" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.21.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.30.1" />
