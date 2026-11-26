@@ -17,7 +17,7 @@
     <PackageReference Include="Aspire.Hosting.Azure.Storage" Version="17.0.0" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="17.0.0" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="17.0.0" />
-    <PackageReference Include="KubernetesClient" Version="21.0.8" />
+    <PackageReference Include="KubernetesClient" Version="21.0.41" />
     <PackageReference Include="MessagePack" Version="3.1.12" />
     <ProjectReference Include="..\BervProject.WebApi.Boilerplate\BervProject.WebApi.Boilerplate.csproj" />
     <ProjectReference Include="..\BervProject.WebApi.Boilerplate.MigrationService\BervProject.WebApi.Boilerplate.MigrationService.csproj" />
